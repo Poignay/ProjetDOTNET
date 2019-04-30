@@ -8,7 +8,7 @@ using ProjetDotNet.DataAccess;
 
 namespace ProjetDotNet.Migrations
 {
-    [DbContext(typeof(DbContext))]
+    [DbContext(typeof(DataAccess.DbContext))]
     [Migration("20190409075134_initial")]
     partial class initial
     {

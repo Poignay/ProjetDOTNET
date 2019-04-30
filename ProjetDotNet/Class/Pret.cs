@@ -10,11 +10,13 @@ namespace ProjetDotNet.Class
 {
     public class Pret
     {
-        [InverseProperty(nameof(Media.id))]
-        public int Id_media { get; set; }
-        
-        [InverseProperty(nameof(Personne.id))]
-        public int Id_personne { get; set; }
+        public int MediaId { get; set; }
+        [ForeignKey(nameof(MediaId))]
+        public Media Media { get; set; }
+
+        public int PersonneID { get; set; }
+        [ForeignKey(nameof(PersonneID))]
+        public Personne Personne { get; set; }
 
         public DateTime date_Pret { get; set; }
         public DateTime date_Retour { get; set; }

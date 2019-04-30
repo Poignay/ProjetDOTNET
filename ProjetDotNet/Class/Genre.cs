@@ -14,5 +14,8 @@ namespace ProjetDotNet.Class
         public int id { get; set; }
 
         public string nom { get; set; }
+
+        [InverseProperty(nameof(Media_Genre.Genre))]
+        public List<Media_Genre> Media { get; set; }
     }
 }

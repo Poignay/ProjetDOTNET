@@ -10,10 +10,13 @@ namespace ProjetDotNet.Class
 {
     public class Media_Genre
     {
-        [InverseProperty(nameof(Media.id))]
-        public int Id_media { get; set; }
-        
-        [InverseProperty(nameof(Genre.id))]
-        public int Id_genre { get; set; }
+
+        public int MediaId { get; set; }
+        [ForeignKey(nameof(MediaId))]
+        public Media Media { get; set; }
+
+        public int GenreId { get; set; }
+        [ForeignKey(nameof(GenreId))]
+        public Genre Genre { get; set; }
     }
 }

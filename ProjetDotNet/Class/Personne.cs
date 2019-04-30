@@ -19,5 +19,11 @@ namespace ProjetDotNet.Class
         public byte[] Photo { get; set; }
         public bool Ami { get; set; }
 
+
+        [InverseProperty(nameof(Media_Personne.Personne))]
+        public List<Media_Personne> MediaPersonne { get; set; }
+
+        [InverseProperty(nameof(Pret.Personne))]
+        public List<Pret> MediaPret { get; set; }
     }
 }

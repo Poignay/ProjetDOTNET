@@ -162,6 +162,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Migrations\20190430084822_MiseAJour1.cs" />
+    <Compile Include="Migrations\20190430084822_MiseAJour1.designer.cs">
+      <DependentUpon>20190430084822_MiseAJour1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\DbContextModelSnapshot.cs" />
+    <Compile Include="ViewModel\Liste.cs" />
     <Compile Include="View\Accueil.xaml.cs">
       <DependentUpon>Accueil.xaml</DependentUpon>
     </Compile>
@@ -202,11 +208,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\20190409075134_initial.cs" />
-    <Compile Include="Migrations\20190409075134_initial.designer.cs">
-      <DependentUpon>20190409075134_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\DbContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -233,9 +234,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

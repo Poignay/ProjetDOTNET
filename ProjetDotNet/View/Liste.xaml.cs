@@ -21,8 +21,9 @@ namespace ProjetDotNet.View
     public partial class Liste : Page
     {
         public Liste()
-        {
+        { 
             InitializeComponent();
+            this.DataContext = new ViewModel.Liste();
         }
     }
 }

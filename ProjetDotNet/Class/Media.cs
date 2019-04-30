@@ -41,6 +41,15 @@ namespace ProjetDotNet.Class
 
         public byte[] Image { get; set; }
 
+        [InverseProperty(nameof(Media_Genre.Media))]
+        public List<Media_Genre> Genres { get; set; }
+
+        [InverseProperty(nameof(Pret.Media))]
+        public List<Pret> PersonnePret { get; set; }
+
+        [InverseProperty(nameof(Media_Personne.Media))]
+        public List<Media_Personne> PersonneMedia { get; set; }
+
 
     }
 }

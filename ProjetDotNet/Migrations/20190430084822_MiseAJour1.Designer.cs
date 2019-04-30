@@ -8,9 +8,9 @@ using ProjetDotNet.DataAccess;
 
 namespace ProjetDotNet.Migrations
 {
-    [DbContext(typeof(DataAccess.DbContext))]
-    [Migration("20190409075134_initial")]
-    partial class initial
+    [DbContext(typeof(DbContext))]
+    [Migration("20190430084822_MiseAJour1")]
+    partial class MiseAJour1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,7 +50,19 @@ namespace ProjetDotNet.Migrations
                     b.ToTable("Episodes");
                 });
 
-            modelBuilder.Entity("ProjetDotNet.Class.Film", b =>
+            modelBuilder.Entity("ProjetDotNet.Class.Genre", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("nom");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Genres");
+                });
+
+            modelBuilder.Entity("ProjetDotNet.Class.Media", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd();
@@ -63,7 +75,8 @@ namespace ProjetDotNet.Migrations
 
                     b.Property<DateTime>("Date_Creation");
 
-                    b.Property<TimeSpan>("Duree");
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
 
                     b.Property<byte[]>("Image");
 
@@ -87,43 +100,37 @@ namespace ProjetDotNet.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("Films");
-                });
+                    b.ToTable("Medias");
 
-            modelBuilder.Entity("ProjetDotNet.Class.Genre", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("nom");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Genres");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Media");
                 });
 
             modelBuilder.Entity("ProjetDotNet.Class.Media_Genre", b =>
                 {
-                    b.Property<int>("Id_genre");
+                    b.Property<int>("GenreId");
 
-                    b.Property<int>("Id_media");
+                    b.Property<int>("MediaId");
 
-                    b.HasKey("Id_genre", "Id_media");
+                    b.HasKey("GenreId", "MediaId");
+
+                    b.HasIndex("MediaId");
 
                     b.ToTable("Media_Genres");
                 });
 
             modelBuilder.Entity("ProjetDotNet.Class.Media_Personne", b =>
                 {
-                    b.Property<int>("id_Media");
+                    b.Property<int>("MediaId");
 
-                    b.Property<int>("id_Personne");
+                    b.Property<int>("PersonneID");
 
                     b.Property<int>("Fontion");
 
                     b.Property<string>("Role");
 
-                    b.HasKey("id_Media", "id_Personne");
+                    b.HasKey("MediaId", "PersonneID");
+
+                    b.HasIndex("PersonneID");
 
                     b.ToTable("Media_Personnes");
                 });
@@ -152,59 +159,79 @@ namespace ProjetDotNet.Migrations
 
             modelBuilder.Entity("ProjetDotNet.Class.Pret", b =>
                 {
-                    b.Property<int>("Id_media");
+                    b.Property<int>("MediaId");
 
-                    b.Property<int>("Id_personne");
+                    b.Property<int>("PersonneID");
 
                     b.Property<DateTime>("date_Pret");
 
                     b.Property<DateTime>("date_Retour");
 
-                    b.HasKey("Id_media", "Id_personne");
+                    b.HasKey("MediaId", "PersonneID");
+
+                    b.HasIndex("PersonneID");
 
                     b.ToTable("Prets");
                 });
 
+            modelBuilder.Entity("ProjetDotNet.Class.Film", b =>
+                {
+                    b.HasBaseType("ProjetDotNet.Class.Media");
+
+                    b.Property<TimeSpan>("Duree");
+
+                    b.HasDiscriminator().HasValue("Film");
+                });
+
             modelBuilder.Entity("ProjetDotNet.Class.Serie", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd();
+                    b.HasBaseType("ProjetDotNet.Class.Media");
 
-                    b.Property<int>("Age_minimum");
-
-                    b.Property<bool>("Audio_Description");
-
-                    b.Property<string>("Commentaire");
-
-                    b.Property<DateTime>("Date_Creation");
-
-                    b.Property<int>("Duree");
-
-                    b.Property<byte[]>("Image");
-
-                    b.Property<int>("Langue_Media");
-
-                    b.Property<int>("Langue_vo");
+                    b.Property<int>("Duree")
+                        .HasColumnName("Serie_Duree");
 
                     b.Property<int>("Nb_Saison");
 
-                    b.Property<int>("Note");
+                    b.HasDiscriminator().HasValue("Serie");
+                });
 
-                    b.Property<int>("Sous_titre");
+            modelBuilder.Entity("ProjetDotNet.Class.Media_Genre", b =>
+                {
+                    b.HasOne("ProjetDotNet.Class.Genre", "Genre")
+                        .WithMany("Media")
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.Property<int>("Statut");
+                    b.HasOne("ProjetDotNet.Class.Media", "Media")
+                        .WithMany("Genres")
+                        .HasForeignKey("MediaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
 
-                    b.Property<bool>("Support_numerique");
+            modelBuilder.Entity("ProjetDotNet.Class.Media_Personne", b =>
+                {
+                    b.HasOne("ProjetDotNet.Class.Media", "Media")
+                        .WithMany("PersonneMedia")
+                        .HasForeignKey("MediaId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.Property<bool>("Support_physique");
+                    b.HasOne("ProjetDotNet.Class.Personne", "Personne")
+                        .WithMany("MediaPersonne")
+                        .HasForeignKey("PersonneID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
 
-                    b.Property<string>("Synopsis");
+            modelBuilder.Entity("ProjetDotNet.Class.Pret", b =>
+                {
+                    b.HasOne("ProjetDotNet.Class.Media", "Media")
+                        .WithMany("PersonnePret")
+                        .HasForeignKey("MediaId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.Property<string>("Titre");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Series");
+                    b.HasOne("ProjetDotNet.Class.Personne", "Personne")
+                        .WithMany("MediaPret")
+                        .HasForeignKey("PersonneID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

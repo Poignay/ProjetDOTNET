@@ -32,6 +32,7 @@ namespace ProjetDotNet.DataAccess
 
         public string DatabasePath { get; }
 
+        public DbSet<Class.Media> Medias { get; set; }
         public DbSet<Class.Film> Films { get; set; }
         public DbSet<Class.Personne> Personnes { get; set; }
         public DbSet<Class.Serie> Series { get; set; }
@@ -53,13 +54,13 @@ namespace ProjetDotNet.DataAccess
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Class.Media_Personne>()
-                                .HasKey(ab => new { ab.id_Media, ab.id_Personne });
+                                .HasKey(ab => new { ab.MediaId, ab.PersonneID });
 
             modelBuilder.Entity<Class.Media_Genre>()
-                                .HasKey(ab => new { ab.Id_genre, ab.Id_media });
+                                .HasKey(ab => new { ab.GenreId, ab.MediaId});
 
             modelBuilder.Entity<Class.Pret>()
-                                .HasKey(ab => new { ab.Id_media, ab.Id_personne });
+                                .HasKey(ab => new { ab.MediaId, ab.PersonneID });
 
             //modelBuilder.Entity<Model.AuthorBook>().HasOne(ab => ab.Book)
             //                                       .WithMany(b => b.Authors)

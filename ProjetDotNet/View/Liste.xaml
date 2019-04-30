@@ -7,7 +7,15 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Liste">
-
+    
+    <Page.Resources>
+        <Style x:Key="Titre" TargetType="TextBlock">
+            <Setter Property="TextTrimming" Value="None" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="0,0,5,0" />
+            <Setter Property="TextAlignment" Value="Right" />
+        </Style>
+    </Page.Resources>
     <Grid>
         <ListBox ItemsSource="{Binding Class.Media}">
             <ItemsControl.ItemTemplate>
@@ -15,29 +23,30 @@
                     <StackPanel Orientation="Vertical">
 
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Nom :" Style="{StaticResource Titre}" />
-                            <TextBlock Text="{Binding Nom}" />
+                            <TextBlock Text="Titre :" Style="{StaticResource Titre}" />
+                            <TextBlock Text="{Binding Titre}" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Prénom :" Style="{StaticResource Titre}" />
-                            <TextBlock Text="{Binding Prenom}" />
+                            <TextBlock Text="Date de création :" Style="{StaticResource Titre}" />
+                            <TextBlock Text="{Binding Date_Creation}" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Adresse :" Style="{StaticResource Titre}" />
-                            <TextBlock Text="{Binding Adresse}" />
+                            <TextBlock Text="Synopsis :" Style="{StaticResource Titre}" />
+                            <TextBlock Text="{Binding Synopsis}" />
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Note :" Style="{StaticResource Titre}" />
+                            <TextBlock Text="{Binding Note}" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Code postal :" Style="{StaticResource Titre}" />
-                            <TextBlock Text="{Binding CodePostal}" />
+                            <TextBlock Text="Commentaire :" Style="{StaticResource Titre}" />
+                            <TextBlock Text="{Binding Commentaire}" />
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Ville :" Style="{StaticResource Titre}" />
-                            <TextBlock Text="{Binding Ville}" />
-                        </StackPanel>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

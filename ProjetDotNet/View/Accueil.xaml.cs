@@ -18,9 +18,9 @@ namespace ProjetDotNet.View
     /// <summary>
     /// Logique d'interaction pour Accueil2.xaml
     /// </summary>
-    public partial class Accueil2 : Page
+    public partial class Accueil : Page
     {
-        public Accueil2()
+        public Accueil()
         {
             InitializeComponent();
         }

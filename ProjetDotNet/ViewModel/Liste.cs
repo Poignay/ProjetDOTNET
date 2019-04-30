@@ -10,23 +10,22 @@ namespace ProjetDotNet.ViewModel
 {
     class Liste
     {
-        private ObservableCollection<Class.Media> _personnes;
-        public ObservableCollection<Class.Media> Personnes
+        private ObservableCollection<Class.Media> _media;
+        public ObservableCollection<Class.Media> Medias
         {
             get
             {
-                if (_personnes == null) _personnes = new ObservableCollection<Class.Media>();
-                return _personnes;
+                return LoadData().Result;
             }
         }
 
-        public async Task LoadData()
+        public async Task<ObservableCollection<Class.Media>> LoadData()
         {
 
             var context = await DataAccess.DbContext.GetCurrent();
 
             // Sélection des medias
-            context.Medias.Include(m => m.Genres).ToList();
+            return new ObservableCollection<Class.Media>(context.Medias.Include(m => m.Genres));
 
 
         }

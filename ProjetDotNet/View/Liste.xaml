@@ -17,7 +17,7 @@
         </Style>
     </Page.Resources>
     <Grid>
-        <ListBox ItemsSource="{Binding Class.Media}">
+        <ListBox ItemsSource="{Binding Medias}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
@@ -47,6 +47,10 @@
                             <TextBlock Text="{Binding Commentaire}" />
                         </StackPanel>
 
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Genre :" Style="{StaticResource Titre}" />
+                            <TextBlock Text="{Binding Genres}" />
+                        </StackPanel>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

@@ -8,9 +8,9 @@ using ProjetDotNet.DataAccess;
 
 namespace ProjetDotNet.Migrations
 {
-    [DbContext(typeof(DbContext))]
-    [Migration("20190430084822_MiseAJour1")]
-    partial class MiseAJour1
+    [DbContext(typeof(DataAccess.DbContext))]
+    [Migration("20190430090910_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

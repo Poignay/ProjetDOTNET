@@ -38,7 +38,13 @@ namespace ProjetDotNet.ViewModel
             ObservableCollection<Class.Media> desMedias=new ObservableCollection<Class.Media>(context.Medias.Include(m => m.Genres).Include(m => m.PersonneMedia));
             foreach(Class.Media med in desMedias)
             {
-
+                unMedia = med;
+                String disss = "";
+                foreach(Class.Media_Personne per in med.PersonneMedia)
+                {
+                    disss = per.Personne.nom + " " + per.Personne.Prenom + " : " + per.Fontion+"; ";
+                }
+                _dis = disss;
             }
 
         }

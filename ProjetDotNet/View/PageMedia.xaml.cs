@@ -16,19 +16,18 @@ using System.Windows.Shapes;
 namespace ProjetDotNet.View
 {
     /// <summary>
-    /// Logique d'interaction pour Liste.xaml
+    /// Logique d'interaction pour PageMedia.xaml
     /// </summary>
-    public partial class Liste : Page
+    public partial class PageMedia : Page
     {
-        public Liste()
+        public PageMedia()
         {
             InitializeComponent();
         }
-
-        public Liste(ViewModel.MainViewModel parent)
-        { 
+        public PageMedia(ViewModel.MainViewModel parent)
+        {
             InitializeComponent();
-            this.DataContext = new ViewModel.Liste(parent);
+            this.DataContext = new ViewModel.PageMedia(parent);
         }
     }
 }

@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace ProjetDotNet.Class
 {
@@ -41,8 +45,60 @@ namespace ProjetDotNet.Class
 
         public byte[] Image { get; set; }
 
-        [InverseProperty(nameof(Media_Genre.Media))]
+        [NotMapped]
+        public String DateCrea
+        {
+            get
+            {
+                return Date_Creation.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+            }
+        }
+
+        [NotMapped]
+        public BitmapImage Img
+        {
+            get
+            {
+                MemoryStream strmImg = new MemoryStream(Image);
+                BitmapImage myBitmapImage = new BitmapImage();
+                myBitmapImage.BeginInit();
+                myBitmapImage.StreamSource = strmImg;
+                myBitmapImage.DecodePixelWidth = 200;
+                myBitmapImage.EndInit();
+                return myBitmapImage;
+            }
+            
+        }
+
+        [NotMapped]
+        public Image ImgSet
+        {
+            set
+            {
+                ImageConverter converter = new ImageConverter();
+                Image = (byte[])converter.ConvertTo(value, typeof(byte[]));
+            }
+        }
+    
+
+    [InverseProperty(nameof(Media_Genre.Media))]
         public List<Media_Genre> Genres { get; set; }
+
+        [NotMapped]
+        public string Ge
+        {
+            get
+            {
+                String str = "";
+                foreach (Media_Genre unGenre in Genres) {
+                   if (str=="")
+                        str = unGenre.Genre.nom ;
+                   else
+                        str += ","+unGenre.Genre.nom ;
+                }
+                return str;
+            }
+        }
 
         [InverseProperty(nameof(Pret.Media))]
         public List<Pret> PersonnePret { get; set; }

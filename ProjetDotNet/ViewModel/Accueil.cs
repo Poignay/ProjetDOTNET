@@ -10,14 +10,35 @@ namespace ProjetDotNet.ViewModel
 {
     class Accueil
     {
-        private String _titre;
-        public String Titre {
-            get {
+        private MainViewModel mvParent;
+        public Accueil(MainViewModel parent)
+        {
+            mvParent = parent;
+        }
+
+        private ObservableCollection<Class.Media> _myOb;
+        public ObservableCollection<Class.Media> myOb
+        {
+            get
+            {
                 LoadData();
+                return _myOb;
+            }
+            set
+            {
+                myOb = _myOb;
+            }
+        }
+        private String _titre;
+        public String Titre
+        {
+            get
+            {
                 return _titre;
             }
-           set {
-                Titre=_titre;
+            set
+            {
+                Titre = _titre;
             }
         }
 
@@ -42,16 +63,12 @@ namespace ProjetDotNet.ViewModel
             await context.SaveChangesAsync();
 
             // Sélection des medias
-            ObservableCollection<Class.Media> myOb=new ObservableCollection<Class.Media>(context.Medias.ToList());
-            foreach( Class.Media a in myOb)
+            ObservableCollection<Class.Media> myOb = new ObservableCollection<Class.Media>(context.Medias);
+
+            foreach (Class.Media i in myOb)
             {
-                _titre = a.Titre;
+                _titre = i.Titre;
             }
-
-            int nbrMedia = context.Medias.ToList().Count;
-            
-
-
 
         }
     }

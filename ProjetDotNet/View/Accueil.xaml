@@ -22,7 +22,9 @@
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Nombre de films et de séries disponibles :" Style="{StaticResource Titre}" />
-                <TextBlock Text="{Binding nbrMedia}" />
+                <TextBlock Text="{Binding myOb.Count()}" />
+                <TextBlock Text="{Binding Titre}" />
+            
             </StackPanel>
         </StackPanel>
 

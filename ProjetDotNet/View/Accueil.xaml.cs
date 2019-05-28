@@ -20,13 +20,15 @@ namespace ProjetDotNet.View
     /// </summary>
     public partial class Accueil : Page
     {
-
-        ViewModel.Accueil _viewModel = new ViewModel.Accueil();
-
         public Accueil()
         {
             InitializeComponent();
-            base.DataContext = _viewModel;
+        }
+
+        public Accueil(ViewModel.MainViewModel parent)
+        {
+            InitializeComponent();
+            base.DataContext = new ViewModel.Accueil(parent);
 
         }
 

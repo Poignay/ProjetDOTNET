@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace ProjetDotNet.ViewModel
 {
-    class MainViewModel
+    public class MainViewModel
     {
         public Page PageCourante { get; set; }
         public MainViewModel()

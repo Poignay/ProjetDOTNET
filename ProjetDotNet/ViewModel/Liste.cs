@@ -10,7 +10,7 @@ using System.Windows.Controls;
 
 namespace ProjetDotNet.ViewModel
 {
-    class Liste
+    class Liste : Inotifier
     {
         private MainViewModel mvParent;
         public Liste(MainViewModel parent) {
@@ -23,6 +23,18 @@ namespace ProjetDotNet.ViewModel
             get
             {
                 return LoadData().Result;
+            }
+        }
+
+        public Class.Media MediaSelectionne
+        {
+            get
+            {
+                return GetValue<Class.Media>();
+            }
+            set
+            {
+                SetValue(value);
             }
         }
 
@@ -48,7 +60,8 @@ namespace ProjetDotNet.ViewModel
         private void VoirMedia()
         {
             mvParent.PageCourante= new View.PageMedia(mvParent);
-            mvParent.PageCourante.DataContext = new ViewModel.PageMedia(mvParent);
+            
+            mvParent.PageCourante.DataContext = new ViewModel.PageMedia(mvParent, MediaSelectionne);
         }
     }
 }

@@ -20,7 +20,8 @@
     </Page.Resources>
     <Grid>
         <ListBox ItemsSource="{Binding Medias}" HorizontalContentAlignment="Stretch"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"  >
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 SelectedItem="{Binding MediaSelectionne}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>

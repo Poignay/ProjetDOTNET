@@ -5,11 +5,18 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace ProjetDotNet.ViewModel
 {
     class Liste
     {
+        private MainViewModel mvParent;
+        public Liste(MainViewModel parent) {
+            mvParent = parent;
+        }
+
         private ObservableCollection<Class.Media> _media;
         public ObservableCollection<Class.Media> Medias
         {
@@ -28,6 +35,20 @@ namespace ProjetDotNet.ViewModel
             return new ObservableCollection<Class.Media>(context.Medias.Include(m => m.Genres));
 
 
+        }
+        
+        public Commands.BaseCommand CommandeVoirMedia
+        {
+            get
+            {
+                return new Commands.BaseCommand(VoirMedia);
+            }
+        }
+
+        private void VoirMedia()
+        {
+            mvParent.PageCourante= new View.PageMedia(mvParent);
+            mvParent.PageCourante.DataContext = new ViewModel.PageMedia(mvParent);
         }
     }
 }

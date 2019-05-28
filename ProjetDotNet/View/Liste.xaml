@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:local="clr-namespace:ProjetDotNet.View"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -10,50 +11,61 @@
     
     <Page.Resources>
         <Style x:Key="Titre" TargetType="TextBlock">
-            <Setter Property="TextTrimming" Value="None" />
             <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="Margin" Value="0,0,5,0" />
-            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="Margin" Value="5,0,5,0" />
+        </Style>
+        <Style x:Key="Libelle" TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
     </Page.Resources>
     <Grid>
-        <ListBox ItemsSource="{Binding Medias}">
+        <ListBox ItemsSource="{Binding Medias}" HorizontalContentAlignment="Stretch"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"  >
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Vertical">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Image Source="{Binding Img}" Width="90" Grid.RowSpan="6" Grid.Row="0" Grid.Column="0">
+                        </Image>
 
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Titre :" Style="{StaticResource Titre}" />
-                            <TextBlock Text="{Binding Titre}" />
-                        </StackPanel>
+                        <TextBlock Text="Titre :" Style="{StaticResource Titre}" Grid.Column="1" Grid.Row="0" />
+                        <TextBlock Text="{Binding Titre}" Style="{StaticResource Libelle}" Grid.Column="2" Grid.Row="0" />
 
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Date de création :" Style="{StaticResource Titre}" />
-                            <TextBlock Text="{Binding Date_Creation}" />
-                        </StackPanel>
+                        <TextBlock Text="Date de création :" Style="{StaticResource Titre}" Grid.Column="1" Grid.Row="1" />
+                        <TextBlock Text="{Binding DateCrea}" Style="{StaticResource Libelle}" Grid.Column="2" Grid.Row="1" />
 
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Synopsis :" Style="{StaticResource Titre}" />
-                            <TextBlock Text="{Binding Synopsis}" />
-                        </StackPanel>
-                        
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Note :" Style="{StaticResource Titre}" />
-                            <TextBlock Text="{Binding Note}" />
-                        </StackPanel>
+                        <TextBlock Text="Synopsis :" Style="{StaticResource Titre}" Grid.Column="1" Grid.Row="2" />
+                        <TextBlock Text="{Binding Synopsis}" Style="{StaticResource Libelle}" Grid.Column="2" Grid.Row="2" />
 
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Commentaire :" Style="{StaticResource Titre}" />
-                            <TextBlock Text="{Binding Commentaire}" />
-                        </StackPanel>
+                        <TextBlock Text="Note :" Style="{StaticResource Titre}" Grid.Column="1" Grid.Row="3" />
+                        <TextBlock Text="{Binding Note}" Style="{StaticResource Libelle}" Grid.Column="2" Grid.Row="3" />
 
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Genre :" Style="{StaticResource Titre}" />
-                            <TextBlock Text="{Binding Genres}" />
-                        </StackPanel>
-                    </StackPanel>
+                        <TextBlock Text="Commentaire :" Style="{StaticResource Titre}" Grid.Column="1"  Grid.Row="4" />
+                        <TextBlock Text="{Binding Commentaire}" Style="{StaticResource Libelle}" Grid.Column="2"  Grid.Row="4" />
+
+                        <TextBlock Text="Genre :" Style="{StaticResource Titre}" Grid.Column="1"  Grid.Row="5" />
+                        <TextBlock Text="{Binding Ge}" Style="{StaticResource Libelle}" Grid.Column="2" Grid.Row="5" />
+                            
+                    </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding CommandeVoirMedia}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </ListBox>
     </Grid>
 </Page>

@@ -7,13 +7,16 @@ using System.Windows.Controls;
 
 namespace ProjetDotNet.ViewModel
 {
-    class MainViewModel
+    public class MainViewModel
     {
         public Page PageCourante { get; set; }
         public MainViewModel()
         {
-            PageCourante = new View.Liste();
-            PageCourante.DataContext = new ViewModel.Liste();
+            PageCourante = new View.Liste(this);
+            PageCourante.DataContext = new ViewModel.Liste(this);
         }
+        
+
+
     }
 }

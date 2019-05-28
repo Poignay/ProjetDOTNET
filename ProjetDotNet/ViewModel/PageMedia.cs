@@ -8,24 +8,41 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ProjetDotNet.ViewModel
 {
-    class PageMedia
+    class PageMedia : Inotifier
     {
         private MainViewModel mvParent;
         public PageMedia(MainViewModel parent)
         {
             mvParent = parent;
         }
+        private Class.Media media;
+        public PageMedia(MainViewModel parent,Class.Media unMedia)
+        {
+            mvParent = parent;
+            media = unMedia;
+        }
 
-        public Class.Media unMedia { get; set; }
-
-        private String _dis;
-        public String Dis {
-            get {
-                LoadData();
-                return _dis;
+        public Class.Media unMedia
+        {
+            get
+            {
+                return GetValue<Class.Media>();
             }
-            set {
-                Dis = _dis;
+            set
+            {
+                SetValue(value);
+            }
+        }
+
+        public String Dis {
+            get
+            {
+                LoadData();
+                return GetValue<String>();
+            }
+            set
+            {
+                SetValue(value);
             }
         }
 
@@ -35,7 +52,7 @@ namespace ProjetDotNet.ViewModel
             var context = await DataAccess.DbContext.GetCurrent();
 
             // Sélection des medias
-            ObservableCollection<Class.Media> desMedias=new ObservableCollection<Class.Media>(context.Medias.Include(m => m.Genres).Include(m => m.PersonneMedia));
+            ObservableCollection<Class.Media> desMedias=new ObservableCollection<Class.Media>(context.Medias.Include(m => m.Genres).Include(m => m.PersonneMedia).Where(m => m.id==media.id));
             foreach(Class.Media med in desMedias)
             {
                 unMedia = med;
@@ -44,7 +61,7 @@ namespace ProjetDotNet.ViewModel
                 {
                     disss = per.Personne.nom + " " + per.Personne.Prenom + " : " + per.Fontion+"; ";
                 }
-                _dis = disss;
+                Dis = disss;
             }
 
         }

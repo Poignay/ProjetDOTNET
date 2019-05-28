@@ -176,6 +176,7 @@
     </Compile>
     <Compile Include="Migrations\DbContextModelSnapshot.cs" />
     <Compile Include="ViewModel\Accueil.cs" />
+    <Compile Include="ViewModel\Inotifier.cs" />
     <Compile Include="ViewModel\Liste.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PageMedia.cs" />

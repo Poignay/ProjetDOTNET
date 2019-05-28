@@ -15,6 +15,9 @@ namespace ProjetDotNet
     /// </summary>
     public partial class App : Application
     {
+
+
+
         protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -41,7 +44,9 @@ namespace ProjetDotNet
                 Genre=unGenre
             });
             context.SaveChanges();
-            
+
+
         }
+        
     }
 }

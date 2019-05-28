@@ -16,13 +16,20 @@ using System.Windows.Shapes;
 namespace ProjetDotNet.View
 {
     /// <summary>
-    /// Logique d'interaction pour Accueil2.xaml
+    /// Logique d'interaction pour Accueil.xaml
     /// </summary>
     public partial class Accueil : Page
     {
+
+        ViewModel.Accueil _viewModel = new ViewModel.Accueil();
+
         public Accueil()
         {
             InitializeComponent();
+            base.DataContext = _viewModel;
+
         }
+
+
     }
 }

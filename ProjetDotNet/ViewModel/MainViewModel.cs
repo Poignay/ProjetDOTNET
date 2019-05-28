@@ -12,8 +12,8 @@ namespace ProjetDotNet.ViewModel
         public Page PageCourante { get; set; }
         public MainViewModel()
         {
-            PageCourante = new View.Liste();
-            PageCourante.DataContext = new ViewModel.Liste();
+            PageCourante = new View.Accueil();
+            PageCourante.DataContext = new ViewModel.Accueil();
         }
     }
 }

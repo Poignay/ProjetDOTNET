@@ -32,6 +32,5 @@ namespace ProjetDotNet.View
 
         }
 
-
     }
 }

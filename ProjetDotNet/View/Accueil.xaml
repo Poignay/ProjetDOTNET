@@ -16,19 +16,42 @@
             <Setter Property="TextAlignment" Value="Right" />
         </Style>
     </Page.Resources>
-    
-    
-    <Grid>
-        <StackPanel Orientation="Vertical">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Nombre de films et de séries disponibles :" Style="{StaticResource Titre}" />
-                <TextBlock Text= "{Binding nbrMedia}" />
 
-                <TextBlock Text="Nombre de films:" Style="{StaticResource Titre}" />
-                <TextBlock Text="{Binding nbrFilm}" />
+
+    <Grid>
+        <Canvas HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="190" Margin="0,0,0,-0.4">
+            <ComboBox x:Name="categoryComboBox" Canvas.Top="90" Width="148" Canvas.Left="10" ItemsSource="{Binding typeCBox}"   
+                SelectedItem="{Binding typeCBoxSelected}"  
+                />
+
+            <StackPanel Height="23" Width="254">
+                <TextBlock TextWrapping="Wrap" Text="TITRE APPLI" Margin="0,0,121.4,0" RenderTransformOrigin="0.616,0.244" Height="20"/>
             </StackPanel>
-          
-        </StackPanel>
+
+            <TextBlock TextWrapping="Wrap" Text="Nombre de films et séries:" Canvas.Top="28" Height="28" Width="148" Canvas.Left="10"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding nbrMedia}" Canvas.Top="28" Height="28" Width="42" Canvas.Left="148"/>
+
+            <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Il vous restes" Canvas.Top="56"/>
+            <TextBlock Canvas.Left="83" TextWrapping="Wrap" Text="{Binding nbrAVoir}" Canvas.Top="56"/>
+
+
+            <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Il y a" Canvas.Top="117"/>
+            <TextBlock Canvas.Left="40" TextWrapping="Wrap" Text="{Binding nbrDansGenre}" Canvas.Top="117"/>
+            <TextBlock Canvas.Left="59" TextWrapping="Wrap" Text="média dans le genre" Canvas.Top="117"/>
+            <TextBlock Canvas.Left="171" TextWrapping="Wrap" Text="{Binding typeCBoxSelected}" Canvas.Top="117"/>
+
+
+            <RadioButton Content="1" Name="note1" Canvas.Left="9" Canvas.Top="159"/>
+            <RadioButton Content="2" Name="note2" Canvas.Left="40" Canvas.Top="159"/>
+            <RadioButton Content="3" Name="note3" Canvas.Left="71" Canvas.Top="159"/>
+            <RadioButton Content="4" Name="note4" Canvas.Left="102" Canvas.Top="159"/>
+            <RadioButton Content="5" Name="note5" Canvas.Left="133" Canvas.Top="159"/>
+
+
+
+        </Canvas>
+        <Canvas HorizontalAlignment="Left" Height="440" Margin="264,10,0,-0.4" VerticalAlignment="Top" Width="526"/>
+
 
     </Grid>
 </Page>

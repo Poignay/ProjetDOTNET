@@ -30,5 +30,10 @@ namespace ProjetDotNet.View
             InitializeComponent();
             this.DataContext = new ViewModel.Liste(parent);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

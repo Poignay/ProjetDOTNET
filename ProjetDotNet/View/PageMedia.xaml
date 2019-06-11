@@ -21,43 +21,77 @@
             <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
     </Page.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
+    <ScrollViewer VerticalScrollBarVisibility="auto">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
 
-        <TextBlock Text="{Binding unMedia.Titre}" Style="{StaticResource GrosTitre}" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" />
+            <TextBlock Text="{Binding unMedia.Titre}" Style="{StaticResource GrosTitre}" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" />
 
-        <Image Source="{Binding unMedia.Img}" Width="90" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0"></Image>
+            <Image Source="{Binding unMedia.Img}" Width="90" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"></Image>
 
-        <TextBlock Text="Date de création :" Style="{StaticResource Titre}"  Grid.Row="2" Grid.Column="0" />
-        <TextBlock Text="{Binding unMedia.DateCrea}" Style="{StaticResource Libelle}"  Grid.Row="2" Grid.Column="1" />
+            <TextBlock Text="Date de création :" Style="{StaticResource Titre}"  Grid.Row="2" Grid.Column="0" />
+            <TextBlock Text="{Binding unMedia.DateCrea}" Style="{StaticResource Libelle}"  Grid.Row="2" Grid.Column="1" />
 
-        <TextBlock Text="Genre :" Style="{StaticResource Titre}"   Grid.Row="3" Grid.Column="0"/>
-        <TextBlock Text="{Binding unMedia.Ge}" Style="{StaticResource Libelle}" Grid.Row="3" Grid.Column="1"/>
+            <TextBlock Text="Genre :" Style="{StaticResource Titre}"   Grid.Row="3" Grid.Column="0"/>
+            <TextBlock Text="{Binding unMedia.Ge}" Style="{StaticResource Libelle}" Grid.Row="3" Grid.Column="1"/>
 
-        <TextBlock Text="Distribution :" Style="{StaticResource Titre}"   Grid.Row="4" Grid.Column="0"/>
-        <TextBlock Text="{Binding Dis}" Style="{StaticResource Libelle}" Grid.Row="4" Grid.Column="1"/>
+            <TextBlock Text="Distribution :" Style="{StaticResource Titre}"   Grid.Row="4" Grid.Column="0"/>
+            <TextBlock Text="{Binding Dis}" Style="{StaticResource Libelle}" Grid.Row="4" Grid.Column="1"/>
 
-        <TextBlock Text="Synopsis :" Style="{StaticResource Titre}"  Grid.Row="5" Grid.Column="0"/>
-        <TextBlock Text="{Binding unMedia.Synopsis}" Style="{StaticResource Libelle}"  Grid.Row="5" Grid.Column="1"/>
+            <TextBlock Text="Synopsis :" Style="{StaticResource Titre}"  Grid.Row="5" Grid.Column="0"/>
+            <TextBlock Text="{Binding unMedia.Synopsis}" Style="{StaticResource Libelle}"  Grid.Row="5" Grid.Column="1"/>
 
-        <TextBlock Text="Note :" Style="{StaticResource Titre}" Grid.Row="6" Grid.Column="0"/>
-        <TextBlock Text="{Binding unMedia.Note}" Style="{StaticResource Libelle}"  Grid.Row="6" Grid.Column="1"/>
+            <TextBlock Text="Note :" Style="{StaticResource Titre}" Grid.Row="6" Grid.Column="0"/>
+            <TextBlock Text="{Binding unMedia.Note}" Style="{StaticResource Libelle}"  Grid.Row="6" Grid.Column="1"/>
 
-        <TextBlock Text="Commentaire :" Style="{StaticResource Titre}"   Grid.Row="7" Grid.Column="0"/>
-        <TextBlock Text="{Binding unMedia.Commentaire}" Style="{StaticResource Libelle}"   Grid.Row="7" Grid.Column="1"/>
+            <TextBlock Text="Commentaire :" Style="{StaticResource Titre}"   Grid.Row="7" Grid.Column="0"/>
+            <TextBlock Text="{Binding unMedia.Commentaire}" Style="{StaticResource Libelle}"   Grid.Row="7" Grid.Column="1"/>
 
-    </Grid>
+            <TextBlock Text="Statut :" Style="{StaticResource Titre}"   Grid.Row="8" Grid.Column="0"/>
+            <TextBlock Text="{Binding unMedia.Statut}" Style="{StaticResource Libelle}"   Grid.Row="8" Grid.Column="1"/>
+        
+            <TextBlock Text="Age minimum :" Style="{StaticResource Titre}"   Grid.Row="9" Grid.Column="0"/>
+            <TextBlock Text="{Binding unMedia.Age_minimum}" Style="{StaticResource Libelle}"   Grid.Row="9" Grid.Column="1"/>
+
+            <TextBlock Text="Langue vo :" Style="{StaticResource Titre}"   Grid.Row="10" Grid.Column="0"/>
+            <TextBlock Text="{Binding unMedia.Langue_vo}" Style="{StaticResource Libelle}"   Grid.Row="10" Grid.Column="1"/>
+
+            <TextBlock Text="Langue Media :" Style="{StaticResource Titre}"   Grid.Row="11" Grid.Column="0"/>
+            <TextBlock Text="{Binding unMedia.Langue_Media}" Style="{StaticResource Libelle}"   Grid.Row="11" Grid.Column="1"/>
+
+            <TextBlock Text="Sous titre :" Style="{StaticResource Titre}"   Grid.Row="12" Grid.Column="0"/>
+            <TextBlock Text="{Binding unMedia.Sous_titre}" Style="{StaticResource Libelle}"   Grid.Row="12" Grid.Column="1"/>
+
+            <TextBlock Text="Audio Description :" Style="{StaticResource Titre}"   Grid.Row="13" Grid.Column="0"/>
+            <TextBlock Text="{Binding unMedia.AudioDes}" Style="{StaticResource Libelle}"   Grid.Row="13" Grid.Column="1"/>
+
+            <TextBlock Text="Support physique :" Style="{StaticResource Titre}"   Grid.Row="14" Grid.Column="0"/>
+            <TextBlock Text="{Binding unMedia.SupportPhy}" Style="{StaticResource Libelle}"   Grid.Row="14" Grid.Column="1"/>
+
+            <TextBlock Text="Support numerique :" Style="{StaticResource Titre}"   Grid.Row="15" Grid.Column="0"/>
+            <TextBlock Text="{Binding unMedia.SupportNum}" Style="{StaticResource Libelle}"   Grid.Row="15" Grid.Column="1"/>
+
+        </Grid>
+    </ScrollViewer>
 </Page>

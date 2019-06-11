@@ -17,5 +17,13 @@ namespace ProjetDotNet.Class
 
         [InverseProperty(nameof(Media_Genre.Genre))]
         public List<Media_Genre> Media { get; set; }
+
+        [NotMapped]
+        public bool chk { get; set; }
+
+        public Genre()
+        {
+            chk = true;
+        }
     }
 }

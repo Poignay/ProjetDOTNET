@@ -29,5 +29,10 @@ namespace ProjetDotNet.View
             InitializeComponent();
             this.DataContext = new ViewModel.PageMedia(parent);
         }
+
+        private void Grid_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
+        {
+
+        }
     }
 }

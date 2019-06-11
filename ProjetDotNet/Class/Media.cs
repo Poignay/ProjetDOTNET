@@ -100,6 +100,39 @@ namespace ProjetDotNet.Class
             }
         }
 
+        [NotMapped]
+        public string AudioDes
+        {
+            get
+            {
+                if(Audio_Description) return "Oui";
+                else return "Non";
+
+            }
+        }
+
+        [NotMapped]
+        public string SupportPhy
+        {
+            get
+            {
+                if (Support_physique) return "Oui";
+                else return "Non";
+
+            }
+        }
+
+        [NotMapped]
+        public string SupportNum
+        {
+            get
+            {
+                if (Support_numerique) return "Oui";
+                else return "Non";
+
+            }
+        }
+
         [InverseProperty(nameof(Pret.Media))]
         public List<Pret> PersonnePret { get; set; }
 

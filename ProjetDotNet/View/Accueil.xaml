@@ -33,7 +33,7 @@
 
             <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Il vous reste" Canvas.Top="56"/>
             <TextBlock Canvas.Left="83" TextWrapping="Wrap" Text="{Binding nbrAVoir}" Canvas.Top="56"/>
-            <TextBlock Canvas.Left="87" TextWrapping="Wrap" Text="média à voir" Canvas.Top="56"/>
+            <TextBlock Canvas.Left="96" TextWrapping="Wrap" Text="média à voir" Canvas.Top="56"/>
 
 
 

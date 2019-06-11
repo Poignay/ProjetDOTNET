@@ -16,7 +16,7 @@ namespace ProjetDotNet.ViewModel
         public Accueil(MainViewModel parent)
         {
             mvParent = parent;
-            LoadData();
+            LoadComboBox();
         }
 
         public int nbrMedia
@@ -72,6 +72,64 @@ namespace ProjetDotNet.ViewModel
             }
         }
 
+        public int nbrDansGenre
+        {
+            get
+            {
+
+                return GetValue<int>();
+            }
+            set
+            {
+                SetValue(value);
+            }
+        }
+
+
+        public int nbrNotes
+        {
+            get
+            {
+
+                return GetValue<int>();
+            }
+            set
+            {
+                SetValue(value);
+            }
+        }
+
+        //Radiobuttons:
+        public Boolean isChecked1
+        {
+            get{return GetValue<Boolean>();}
+            set{SetValue(value); LoadData(); }
+        }
+
+        public Boolean isChecked2
+        {
+            get { return GetValue<Boolean>(); }
+            set { SetValue(value); LoadData(); }
+        }
+
+        public Boolean isChecked3
+        {
+            get { return GetValue<Boolean>(); }
+            set { SetValue(value); LoadData(); }
+        }
+
+        public Boolean isChecked4
+        {
+            get { return GetValue<Boolean>(); }
+            set { SetValue(value); LoadData(); }
+        }
+
+        public Boolean isChecked5
+        {
+            get { return GetValue<Boolean>(); }
+            set { SetValue(value); LoadData(); }
+        }
+
 
         public ObservableCollection<String> typeCBox
         {
@@ -83,15 +141,10 @@ namespace ProjetDotNet.ViewModel
         public String typeCBoxSelected
         {
             get { return GetValue<String>(); }
-            set { SetValue(value); }
+            set { SetValue(value); LoadData(); }
         }
 
-        public void LoadComboBox(ObservableCollection<String> list)
-        {
-            typeCBox = list;
-        }
-
-        public async Task LoadData()
+        public async Task LoadComboBox()
         {
             var context = await DataAccess.DbContext.GetCurrent();
 
@@ -103,7 +156,15 @@ namespace ProjetDotNet.ViewModel
                 listString.Add(el.nom);
             }
 
-            LoadComboBox(listString);
+            typeCBox = listString;
+
+            LoadData();
+           
+        }
+        
+        public async Task LoadData()
+        {
+            var context = await DataAccess.DbContext.GetCurrent();
 
             // Sélection du nombre de total de média
             ObservableCollection<Class.Media> allMedia = new ObservableCollection<Class.Media>(context.Medias.ToList());
@@ -122,12 +183,39 @@ namespace ProjetDotNet.ViewModel
 
             nbrSerie = allSerie.Count;
 
-            ObservableCollection<Class.Media> aVoir = new ObservableCollection<Class.Media>(context.Series.ToList());
+            //Sélection du nombre de films/Séries à voir
+            ObservableCollection<Class.Media> aVoir = new ObservableCollection<Class.Media>(context.Medias.Where(m=> m.Statut.ToString() == "A_voir").ToList());
 
             nbrAVoir = aVoir.Count;
 
             // Sélection du nombre de total de média suivant le Genre sélectionné
-            //ObservableCollection<Class.Media> dansGenre = new ObservableCollection<Class.Media>(context.Medias.Include(m => m.Genres.Where(nom => nom.nom =typeCBoxSelected)).ToList());
+            ObservableCollection<Class.Media> dansGenre = new ObservableCollection<Class.Media>(context.Medias.Include(m => m.Genres).Where(m => m.Genres.Any(g => g.Genre.nom == typeCBoxSelected)).ToList());
+
+            nbrDansGenre = dansGenre.Count;
+
+
+
+            //Sélections des films suivant la notes:
+            if(isChecked1 == true)
+            {
+                ObservableCollection<Class.Media> deLaNote = new ObservableCollection<Class.Media>(context.Medias.Where(m => m.Note == 1).ToList());
+                nbrNotes = deLaNote.Count;
+            }else if(isChecked2 == true){
+                    ObservableCollection<Class.Media> deLaNote = new ObservableCollection<Class.Media>(context.Medias.Where(m => m.Note == 2).ToList());
+                    nbrNotes = deLaNote.Count;
+            }else if (isChecked3 == true){
+                ObservableCollection<Class.Media> deLaNote = new ObservableCollection<Class.Media>(context.Medias.Where(m => m.Note == 3).ToList());
+                nbrNotes = deLaNote.Count;
+            }else if (isChecked4 == true){
+                ObservableCollection<Class.Media> deLaNote = new ObservableCollection<Class.Media>(context.Medias.Where(m => m.Note == 4).ToList());
+                nbrNotes = deLaNote.Count;
+            }else if (isChecked5 == true){
+                ObservableCollection<Class.Media> deLaNote = new ObservableCollection<Class.Media>(context.Medias.Where(m => m.Note == 5).ToList());
+                nbrNotes = deLaNote.Count;
+            }else{
+                nbrNotes = 0;
+            }
+
 
 
         }

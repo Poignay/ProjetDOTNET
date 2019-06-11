@@ -31,26 +31,32 @@
             <TextBlock TextWrapping="Wrap" Text="Nombre de films et séries:" Canvas.Top="28" Height="28" Width="148" Canvas.Left="10"/>
             <TextBlock TextWrapping="Wrap" Text="{Binding nbrMedia}" Canvas.Top="28" Height="28" Width="42" Canvas.Left="148"/>
 
-            <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Il vous restes" Canvas.Top="56"/>
+            <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Il vous reste" Canvas.Top="56"/>
             <TextBlock Canvas.Left="83" TextWrapping="Wrap" Text="{Binding nbrAVoir}" Canvas.Top="56"/>
+            <TextBlock Canvas.Left="87" TextWrapping="Wrap" Text="média à voir" Canvas.Top="56"/>
+
 
 
             <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Il y a" Canvas.Top="117"/>
             <TextBlock Canvas.Left="40" TextWrapping="Wrap" Text="{Binding nbrDansGenre}" Canvas.Top="117"/>
-            <TextBlock Canvas.Left="59" TextWrapping="Wrap" Text="média dans le genre" Canvas.Top="117"/>
-            <TextBlock Canvas.Left="171" TextWrapping="Wrap" Text="{Binding typeCBoxSelected}" Canvas.Top="117"/>
+            <TextBlock Canvas.Left="50" TextWrapping="Wrap" Text="média dans le genre" Canvas.Top="117"/>
+            <TextBlock Canvas.Left="162" TextWrapping="Wrap" Text="{Binding typeCBoxSelected}" Canvas.Top="117"/>
 
 
-            <RadioButton Content="1" Name="note1" Canvas.Left="9" Canvas.Top="159"/>
-            <RadioButton Content="2" Name="note2" Canvas.Left="40" Canvas.Top="159"/>
-            <RadioButton Content="3" Name="note3" Canvas.Left="71" Canvas.Top="159"/>
-            <RadioButton Content="4" Name="note4" Canvas.Left="102" Canvas.Top="159"/>
-            <RadioButton Content="5" Name="note5" Canvas.Left="133" Canvas.Top="159"/>
+            <RadioButton GroupName="Note" Content="1" Name="note1" IsChecked="{Binding isChecked1}" Canvas.Left="9" Canvas.Top="159"/>
+            <RadioButton GroupName="Note" Content="2" Name="note2" IsChecked="{Binding isChecked2}" Canvas.Left="40" Canvas.Top="159"/>
+            <RadioButton GroupName="Note" Content="3" Name="note3" IsChecked="{Binding isChecked3}" Canvas.Left="71" Canvas.Top="159"/>
+            <RadioButton GroupName="Note" Content="4" Name="note4" IsChecked="{Binding isChecked4}" Canvas.Left="102" Canvas.Top="159"/>
+            <RadioButton GroupName="Note" Content="5" Name="note5" IsChecked="{Binding isChecked5}" Canvas.Left="133" Canvas.Top="159"/>
+            <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Il y a" Canvas.Top="179"/>
+            <TextBlock Canvas.Left="40" TextWrapping="Wrap" Text="{Binding nbrNotes}" Canvas.Top="179"/>
+            <TextBlock Canvas.Left="50" TextWrapping="Wrap" Text="média de la note choisie" Canvas.Top="179"/>
+
 
 
 
         </Canvas>
-        <Canvas HorizontalAlignment="Left" Height="440" Margin="264,10,0,-0.4" VerticalAlignment="Top" Width="526"/>
+        <Canvas HorizontalAlignment="Left" Height="440" Margin="224,10,0,-0.4" VerticalAlignment="Top" Width="566"/>
 
 
     </Grid>

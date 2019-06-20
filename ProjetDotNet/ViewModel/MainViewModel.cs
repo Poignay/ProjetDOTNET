@@ -6,6 +6,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using LiveCharts; //Core of the library
+using LiveCharts.Wpf; //The WPF controls
 using System.Windows.Controls;
 
 namespace ProjetDotNet.ViewModel

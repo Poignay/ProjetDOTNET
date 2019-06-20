@@ -28,6 +28,7 @@ namespace ProjetDotNet.View
         public Accueil(ViewModel.MainViewModel parent)
         {
             InitializeComponent();
+           
             base.DataContext = new ViewModel.Accueil(parent);
 
         }

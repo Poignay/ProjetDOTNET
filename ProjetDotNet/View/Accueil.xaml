@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ProjetDotNet.View"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Accueil">
@@ -19,44 +20,55 @@
 
 
     <Grid>
-        <Canvas HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="190" Margin="0,0,0,-0.4">
-            <ComboBox x:Name="categoryComboBox" Canvas.Top="90" Width="148" Canvas.Left="10" ItemsSource="{Binding typeCBox}"   
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="77*"/>
+        </Grid.ColumnDefinitions>
+        <Canvas HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="190" Margin="0,-13,0,0" Grid.ColumnSpan="2">
+            <ComboBox x:Name="categoryComboBox" Canvas.Top="201" Width="148" Canvas.Left="9" ItemsSource="{Binding typeCBox}"   
                 SelectedItem="{Binding typeCBoxSelected}"  
                 />
 
-            <StackPanel Height="23" Width="254">
+            <StackPanel Height="23" Width="254" Canvas.Top="50" Canvas.Left="9">
                 <TextBlock TextWrapping="Wrap" Text="TITRE APPLI" Margin="0,0,121.4,0" RenderTransformOrigin="0.616,0.244" Height="20"/>
             </StackPanel>
 
-            <TextBlock TextWrapping="Wrap" Text="Nombre de films et séries:" Canvas.Top="28" Height="28" Width="148" Canvas.Left="10"/>
-            <TextBlock TextWrapping="Wrap" Text="{Binding nbrMedia}" Canvas.Top="28" Height="28" Width="42" Canvas.Left="148"/>
+            <TextBlock TextWrapping="Wrap" Text="Nombre de films et séries:" Canvas.Top="106" Height="28" Width="148" Canvas.Left="9"/>
+            <TextBlock TextWrapping="Wrap" Text="{Binding nbrMedia}" Canvas.Top="106" Height="28" Width="42" Canvas.Left="148"/>
 
-            <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Il vous reste" Canvas.Top="56"/>
-            <TextBlock Canvas.Left="83" TextWrapping="Wrap" Text="{Binding nbrAVoir}" Canvas.Top="56"/>
-            <TextBlock Canvas.Left="96" TextWrapping="Wrap" Text="média à voir" Canvas.Top="56"/>
-
-
-
-            <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Il y a" Canvas.Top="117"/>
-            <TextBlock Canvas.Left="40" TextWrapping="Wrap" Text="{Binding nbrDansGenre}" Canvas.Top="117"/>
-            <TextBlock Canvas.Left="50" TextWrapping="Wrap" Text="média dans le genre" Canvas.Top="117"/>
-            <TextBlock Canvas.Left="162" TextWrapping="Wrap" Text="{Binding typeCBoxSelected}" Canvas.Top="117"/>
+            <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Il vous reste" Canvas.Top="158"/>
+            <TextBlock Canvas.Left="76" TextWrapping="Wrap" Text="{Binding nbrAVoir}" Canvas.Top="158"/>
+            <TextBlock Canvas.Left="86" TextWrapping="Wrap" Text="média à voir" Canvas.Top="158"/>
 
 
-            <RadioButton GroupName="Note" Content="1" Name="note1" IsChecked="{Binding isChecked1}" Canvas.Left="9" Canvas.Top="159"/>
-            <RadioButton GroupName="Note" Content="2" Name="note2" IsChecked="{Binding isChecked2}" Canvas.Left="40" Canvas.Top="159"/>
-            <RadioButton GroupName="Note" Content="3" Name="note3" IsChecked="{Binding isChecked3}" Canvas.Left="71" Canvas.Top="159"/>
-            <RadioButton GroupName="Note" Content="4" Name="note4" IsChecked="{Binding isChecked4}" Canvas.Left="102" Canvas.Top="159"/>
-            <RadioButton GroupName="Note" Content="5" Name="note5" IsChecked="{Binding isChecked5}" Canvas.Left="133" Canvas.Top="159"/>
-            <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Il y a" Canvas.Top="179"/>
-            <TextBlock Canvas.Left="40" TextWrapping="Wrap" Text="{Binding nbrNotes}" Canvas.Top="179"/>
-            <TextBlock Canvas.Left="50" TextWrapping="Wrap" Text="média de la note choisie" Canvas.Top="179"/>
+
+            <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Il y a" Canvas.Top="242"/>
+            <TextBlock Canvas.Left="41" TextWrapping="Wrap" Text="{Binding nbrDansGenre}" Canvas.Top="242"/>
+            <TextBlock Canvas.Left="50" TextWrapping="Wrap" Text="média dans le genre" Canvas.Top="242"/>
+            <TextBlock Canvas.Left="162" TextWrapping="Wrap" Text="{Binding typeCBoxSelected}" Canvas.Top="242"/>
+
+
+            <RadioButton GroupName="Note" Content="1" Name="note1" IsChecked="{Binding isChecked1}" Canvas.Left="10" Canvas.Top="281"/>
+            <RadioButton GroupName="Note" Content="2" Name="note2" IsChecked="{Binding isChecked2}" Canvas.Left="41" Canvas.Top="281"/>
+            <RadioButton GroupName="Note" Content="3" Name="note3" IsChecked="{Binding isChecked3}" Canvas.Left="72" Canvas.Top="281"/>
+            <RadioButton GroupName="Note" Content="4" Name="note4" IsChecked="{Binding isChecked4}" Canvas.Left="103" Canvas.Top="281"/>
+            <RadioButton GroupName="Note" Content="5" Name="note5" IsChecked="{Binding isChecked5}" Canvas.Left="134" Canvas.Top="281"/>
+            <TextBlock Canvas.Left="9" TextWrapping="Wrap" Text="Il y a" Canvas.Top="313"/>
+            <TextBlock Canvas.Left="40" TextWrapping="Wrap" Text="{Binding nbrNotes}" Canvas.Top="313"/>
+            <TextBlock Canvas.Left="50" TextWrapping="Wrap" Text="média de la note choisie" Canvas.Top="313"/>
 
 
 
 
         </Canvas>
-        <Canvas HorizontalAlignment="Left" Height="440" Margin="224,10,0,-0.4" VerticalAlignment="Top" Width="566"/>
+        <Canvas HorizontalAlignment="Left" Height="440" Margin="193.6,10,0,-0.4" VerticalAlignment="Top" Width="566" Grid.Column="1">
+            <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Height="170" Width="200">
+                <lvc:PieChart.Series>
+                    <lvc:PieSeries Title="Film" Values="{Binding valeurSerie}" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
+                    <lvc:PieSeries Title="Séries" Values="4" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
+                </lvc:PieChart.Series>
+            </lvc:PieChart>
+        </Canvas>
 
 
     </Grid>

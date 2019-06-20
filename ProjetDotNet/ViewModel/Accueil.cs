@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using Microsoft.EntityFrameworkCore;
 using System.Windows.Controls;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 
 namespace ProjetDotNet.ViewModel
@@ -21,82 +23,38 @@ namespace ProjetDotNet.ViewModel
 
         public int nbrMedia
         {
-            get
-            {
-
-                return GetValue<int>();
-            }
-            set
-            {
-                SetValue(value);
-            }
+            get{return GetValue<int>();}
+            set{SetValue(value);}
         }
 
         public int nbrFilm
         {
-            get
-            {
-
-                return GetValue<int>();
-            }
-            set
-            {
-                SetValue(value);
-            }
+            get{return GetValue<int>();}
+            set{SetValue(value);}
         }
 
         public int nbrSerie
         {
-            get
-            {
-
-                return GetValue<int>();
-            }
-            set
-            {
-                SetValue(value);
-            }
+            get{return GetValue<int>();}
+            set{SetValue(value);}
         }
-
 
         public int nbrAVoir
         {
-            get
-            {
-
-                return GetValue<int>();
-            }
-            set
-            {
-                SetValue(value);
-            }
+            get{return GetValue<int>();}
+            set{SetValue(value);}
         }
 
         public int nbrDansGenre
         {
-            get
-            {
-
-                return GetValue<int>();
-            }
-            set
-            {
-                SetValue(value);
-            }
+            get{return GetValue<int>();}
+            set{SetValue(value);}
         }
-
 
         public int nbrNotes
         {
-            get
-            {
-
-                return GetValue<int>();
-            }
-            set
-            {
-                SetValue(value);
-            }
+            get{return GetValue<int>();}
+            set{SetValue(value);}
         }
 
         //Radiobuttons:
@@ -144,6 +102,18 @@ namespace ProjetDotNet.ViewModel
             set { SetValue(value); LoadData(); }
         }
 
+        public ChartValues<double> valeurFilm
+        {
+            get { return GetValue<ChartValues<double>>(); }
+            set { SetValue(value);}
+        }
+
+        public ChartValues<double> valeurSerie
+        {
+            get { return GetValue<ChartValues<double>>(); }
+            set { SetValue(value); }
+        }
+
         public async Task LoadComboBox()
         {
             var context = await DataAccess.DbContext.GetCurrent();
@@ -161,7 +131,9 @@ namespace ProjetDotNet.ViewModel
             LoadData();
            
         }
-        
+
+        public Func<ChartPoint, string> PointLabel { get; set; }
+
         public async Task LoadData()
         {
             var context = await DataAccess.DbContext.GetCurrent();
@@ -175,7 +147,7 @@ namespace ProjetDotNet.ViewModel
             // Sélection du nombre de total de film
             ObservableCollection<Class.Media> allFilm = new ObservableCollection<Class.Media>(context.Films.ToList());
 
-            nbrFilm = allFilm.Count;
+            nbrFilm = allFilm.Count ;
 
 
             // Sélection du nombre de total de serie
@@ -215,9 +187,12 @@ namespace ProjetDotNet.ViewModel
             }else{
                 nbrNotes = 0;
             }
+            
+            valeurSerie = new ChartValues<Double> { nbrSerie };
+            valeurFilm = new ChartValues<Double> { nbrFilm };
 
-
-
+            PointLabel = chartPoint =>
+                string.Format("{0} ({1:P})", chartPoint.Y, chartPoint.Participation);
         }
     }
 }

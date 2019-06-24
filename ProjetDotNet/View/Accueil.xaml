@@ -17,6 +17,143 @@
             <Setter Property="TextAlignment" Value="Right" />
         </Style>
 
+        <Style x:Key="Texte" TargetType="TextBlock">
+            <Setter Property="TextTrimming" Value="None" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="0,0,5,0" />
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="FontFamily" Value="Miriam" />
+            <Setter Property="Foreground" Value="#004d40" />
+        </Style>
+
+        <Style x:Key="Reponse" TargetType="TextBlock">
+            <Setter Property="TextTrimming" Value="None" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Margin" Value="0,0,5,0" />
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="FontFamily" Value="Miriam" />
+            <Setter Property="Foreground" Value="#004d40" />
+        </Style>
+
+        <!-- Flat ComboBox -->
+        <SolidColorBrush x:Key="ComboBoxNormalBorderBrush" Color="#004d40"  />
+        <SolidColorBrush x:Key="ComboBoxNormalBackgroundBrush" Color="#2c2f34" />
+        <SolidColorBrush x:Key="ComboBoxDisabledForegroundBrush" Color="#004d40" />
+        <SolidColorBrush x:Key="ComboBoxDisabledBackgroundBrush" Color="#2c2f34" />
+        <SolidColorBrush x:Key="ComboBoxDisabledBorderBrush" Color="#004d40" />
+
+        <ControlTemplate TargetType="ToggleButton" x:Key="ComboBoxToggleButtonTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Border Grid.ColumnSpan="2" Name="Border"
+              BorderBrush="{StaticResource ComboBoxNormalBorderBrush}" 
+              CornerRadius="0" BorderThickness="2" 
+              Background="{StaticResource ComboBoxNormalBackgroundBrush}" />
+                <Border Grid.Column="1" Margin="1, 1, 1, 1" BorderBrush="#004d40" Name="ButtonBorder"
+              CornerRadius="0, 0, 0, 0" BorderThickness="2, 2, 2, 2" 
+              Background="{StaticResource ComboBoxNormalBackgroundBrush}" />
+
+                <Path Name="Arrow" Grid.Column="1" 
+            Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
+            HorizontalAlignment="Center" Fill="#2c2f34"
+            VerticalAlignment="Center" />
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="UIElement.IsMouseOver" Value="True">
+                    <Setter Property="Panel.Background" TargetName="ButtonBorder" Value="#004d40"/>
+                </Trigger>
+                <Trigger Property="ToggleButton.IsChecked" Value="True">
+                    <Setter Property="Panel.Background" TargetName="ButtonBorder" Value="#2c2f34"/>
+                    <Setter Property="Shape.Fill" TargetName="Arrow" Value="#004d40"/>
+                </Trigger>
+                <Trigger Property="UIElement.IsEnabled" Value="False">
+                    <Setter Property="Panel.Background" TargetName="Border" Value="{StaticResource ComboBoxDisabledBackgroundBrush}"/>
+                    <Setter Property="Panel.Background" TargetName="ButtonBorder" Value="{StaticResource ComboBoxDisabledBackgroundBrush}"/>
+                    <Setter Property="Border.BorderBrush" TargetName="ButtonBorder" Value="{StaticResource ComboBoxDisabledBorderBrush}"/>
+                    <Setter Property="TextElement.Foreground" Value="{StaticResource ComboBoxDisabledForegroundBrush}"/>
+                    <Setter Property="Shape.Fill" TargetName="Arrow" Value="#004d40"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style x:Key="ComboBoxFlatStyle"  TargetType="{x:Type ComboBox}" >
+            <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
+            <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="True"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            <Setter Property="TextElement.Foreground" Value="#004d40"/>
+            <Setter Property="TextElement.FontWeight" Value="ExtraBold"/>
+
+            <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton Name="ToggleButton" Grid.Column="2"
+                ClickMode="Press" Focusable="False"
+                IsChecked="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                Template="{StaticResource ComboBoxToggleButtonTemplate}"/>
+
+                            <ContentPresenter Name="ContentSite" Margin="5, 3, 23, 3" IsHitTestVisible="False"
+                              HorizontalAlignment="Left" VerticalAlignment="Center"                              
+                              Content="{TemplateBinding ComboBox.SelectionBoxItem}" 
+                              ContentTemplate="{TemplateBinding ComboBox.SelectionBoxItemTemplate}"
+                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>
+                            <TextBox Name="PART_EditableTextBox" Margin="3, 3, 23, 3"                     
+                     IsReadOnly="{TemplateBinding IsReadOnly}"
+                     Visibility="Hidden" Background="Transparent"
+                     HorizontalAlignment="Left" VerticalAlignment="Center"
+                     Focusable="True" >
+                                <TextBox.Template>
+                                    <ControlTemplate TargetType="TextBox" >
+                                        <Border Name="PART_ContentHost" Focusable="False" />
+                                    </ControlTemplate>
+                                </TextBox.Template>
+                            </TextBox>
+                            <!-- Popup showing items -->
+                            <Popup Name="Popup" Placement="Bottom"
+                   Focusable="False" AllowsTransparency="True"
+                   IsOpen="{TemplateBinding ComboBox.IsDropDownOpen}"
+                   PopupAnimation="Slide">
+                                <Grid Name="DropDown" SnapsToDevicePixels="True"
+                    MinWidth="{TemplateBinding FrameworkElement.ActualWidth}"
+                    MaxHeight="{TemplateBinding ComboBox.MaxDropDownHeight}">
+                                    <Border Name="DropDownBorder" Background="#2c2f34" Margin="0, 1, 0, 0"
+                        CornerRadius="0" BorderThickness="1,1,1,1" 
+                        BorderBrush="{StaticResource ComboBoxNormalBorderBrush}"/>
+                                    <ScrollViewer Margin="4" SnapsToDevicePixels="True">
+                                        <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="ItemsControl.HasItems" Value="False">
+                                <Setter Property="FrameworkElement.MinHeight" TargetName="DropDownBorder" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="UIElement.IsEnabled" Value="False">
+                                <Setter Property="TextElement.Foreground" Value="{StaticResource ComboBoxDisabledForegroundBrush}"/>
+                            </Trigger>
+                            <Trigger Property="ItemsControl.IsGrouping" Value="True">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+                            </Trigger>
+                            <Trigger Property="ComboBox.IsEditable" Value="True">
+                                <Setter Property="KeyboardNavigation.IsTabStop" Value="False"/>
+                                <Setter Property="UIElement.Visibility" TargetName="PART_EditableTextBox" Value="Visible"/>
+                                <Setter Property="UIElement.Visibility" TargetName="ContentSite" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
         <Storyboard x:Key="Pulse" RepeatBehavior="Forever">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="PulseBox">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1.05"/>
@@ -35,14 +172,14 @@
         </EventTrigger>
     </Page.Triggers>
 
-    <Grid Background="#2c2f34">
+    <Grid Background="#2c2f34" Margin="0,0,0,-0.4">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="77*"/>
         </Grid.ColumnDefinitions>
 
 
-        <Canvas Background="#2c2f34" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="238" Grid.ColumnSpan="2" Margin="-5,-5,0,0" RenderTransformOrigin="0.5,0.5">
+        <Canvas Background="#2c2f34" HorizontalAlignment="Left" Height="444" VerticalAlignment="Top" Width="238" Grid.ColumnSpan="2" Margin="-5,1,0,0" RenderTransformOrigin="0.5,0.5">
             <Canvas.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -51,7 +188,7 @@
                     <TranslateTransform Y="-0.4"/>
                 </TransformGroup>
             </Canvas.RenderTransform>
-            <ComboBox x:Name="categoryComboBox" Canvas.Top="227" Width="148" Canvas.Left="9" ItemsSource="{Binding typeCBox}"   
+            <ComboBox x:Name="categoryComboBox" Style="{DynamicResource  ComboBoxFlatStyle}" Canvas.Top="227" Width="148" Canvas.Left="9" ItemsSource="{Binding typeCBox}"   
                 SelectedItem="{Binding typeCBoxSelected}"  
                 />
 
@@ -67,27 +204,21 @@
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="/ProjetDotNet;component/logoContour.png"></ImageBrush>
                 </Rectangle.Fill>
-
-
-
             </Rectangle>
 
+            <TextBlock Style="{StaticResource Texte}" TextWrapping="Wrap" Text="Nombre de films et séries:" Canvas.Top="170" Height="28" Width="148" Canvas.Left="9"/>
+            <TextBlock Style="{StaticResource Reponse}" TextWrapping="Wrap" Text="{Binding nbrMedia}" Canvas.Top="167" Height="13" Width="14" Canvas.Left="162" Margin="0"/>
+
+            <TextBlock Style="{StaticResource Texte}" Canvas.Left="10" TextWrapping="Wrap" Text="Il vous reste" Canvas.Top="204"/>
+            <TextBlock Style="{StaticResource Reponse}" Canvas.Left="80" TextWrapping="Wrap" Text="{Binding nbrAVoir}" Canvas.Top="201"/>
+            <TextBlock Style="{StaticResource Texte}" Canvas.Left="102" TextWrapping="Wrap" Text="média à voir" Canvas.Top="204" Margin="0"/>
 
 
 
-            <TextBlock TextWrapping="Wrap" Text="Nombre de films et séries:" Canvas.Top="170" Height="28" Width="148" Canvas.Left="9"/>
-            <TextBlock TextWrapping="Wrap" Text="{Binding nbrMedia}" Canvas.Top="170" Height="28" Width="42" Canvas.Left="148"/>
-
-            <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Il vous reste" Canvas.Top="204"/>
-            <TextBlock Canvas.Left="76" TextWrapping="Wrap" Text="{Binding nbrAVoir}" Canvas.Top="204"/>
-            <TextBlock Canvas.Left="86" TextWrapping="Wrap" Text="média à voir" Canvas.Top="204"/>
-
-
-
-            <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="Il y a" Canvas.Top="263"/>
-            <TextBlock Canvas.Left="41" TextWrapping="Wrap" Text="{Binding nbrDansGenre}" Canvas.Top="263"/>
-            <TextBlock Canvas.Left="50" TextWrapping="Wrap" Text="média dans le genre" Canvas.Top="263"/>
-            <TextBlock Canvas.Left="162" TextWrapping="Wrap" Text="{Binding typeCBoxSelected}" Canvas.Top="263"/>
+            <TextBlock Style="{StaticResource Texte}" Canvas.Left="10" TextWrapping="Wrap" Text="Il y a" Canvas.Top="263"/>
+            <TextBlock Style="{StaticResource Reponse}" Canvas.Left="41" TextWrapping="Wrap" Text="{Binding nbrDansGenre}" Canvas.Top="260"/>
+            <TextBlock Style="{StaticResource Texte}" Canvas.Left="61" TextWrapping="Wrap" Text="média dans le genre" Canvas.Top="263" Margin="0"/>
+            <TextBlock Style="{StaticResource Reponse}" Canvas.Left="179" TextWrapping="Wrap" Text="{Binding typeCBoxSelected}" Canvas.Top="260" Margin="0"/>
 
 
             <RadioButton GroupName="Note" Content="1" Name="note1" IsChecked="{Binding isChecked1}" Canvas.Left="10" Canvas.Top="305"/>
@@ -95,23 +226,47 @@
             <RadioButton GroupName="Note" Content="3" Name="note3" IsChecked="{Binding isChecked3}" Canvas.Left="72" Canvas.Top="305"/>
             <RadioButton GroupName="Note" Content="4" Name="note4" IsChecked="{Binding isChecked4}" Canvas.Left="103" Canvas.Top="305"/>
             <RadioButton GroupName="Note" Content="5" Name="note5" IsChecked="{Binding isChecked5}" Canvas.Left="134" Canvas.Top="305"/>
-            <TextBlock Canvas.Left="9" TextWrapping="Wrap" Text="Il y a" Canvas.Top="330"/>
-            <TextBlock Canvas.Left="40" TextWrapping="Wrap" Text="{Binding nbrNotes}" Canvas.Top="330"/>
-            <TextBlock Canvas.Left="50" TextWrapping="Wrap" Text="média de la note choisie" Canvas.Top="330"/>
+            <TextBlock Style="{StaticResource Texte}" Canvas.Left="9" TextWrapping="Wrap" Text="Il y a" Canvas.Top="330"/>
+            <TextBlock Style="{StaticResource Reponse}" Canvas.Left="40" TextWrapping="Wrap" Text="{Binding nbrNotes}" Canvas.Top="327"/>
+            <TextBlock Style="{StaticResource Texte}" Canvas.Left="57" TextWrapping="Wrap" Text="média de la note choisie" Canvas.Top="330" Margin="0"/>
         </Canvas>
 
-        <Canvas Background="#2c2f34"  HorizontalAlignment="Left" Height="450" Margin="199.6,0,0,-0.4" VerticalAlignment="Top" Width="560" Grid.Column="1">
-            <Border x:Name="border" BorderBrush="Green" BorderThickness="3" Canvas.Left="31">
-                <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Height="170" Width="200" Canvas.Left="5" Canvas.Top="10">
-                    <lvc:PieChart.Series>
-                        <lvc:PieSeries Title="Film" Values="{Binding valeurFilm}" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
-                        <lvc:PieSeries Title="Séries" Values="{Binding valeurFilm}" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
-                    </lvc:PieChart.Series>
-                </lvc:PieChart>
-            </Border>
-        </Canvas>
+        <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="5" Canvas.Top="10" Margin="230.6,2,276,235" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
+            <lvc:PieChart.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.408"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </lvc:PieChart.RenderTransform>
+            <lvc:PieChart.Series>
+                <lvc:PieSeries Title="Film" Values="{Binding valeurFilm}" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
+                <lvc:PieSeries Title="Séries" Values="{Binding valeurFilm}" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
+            </lvc:PieChart.Series>
+        </lvc:PieChart>
 
 
+        <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="5" Canvas.Top="10" Grid.Column="1" Margin="494.6,0,0,232">
+            <lvc:PieChart.Series>
+                <lvc:PieSeries Title="Média vu" Values="{Binding valeurMediaVu}" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
+                <lvc:PieSeries Title="Média à voir" Values="{Binding valeurMediaAvoir}" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
+                <lvc:PieSeries Title="Média en cours de visionnnage" Values="{Binding valeurMediaEnCours}" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
+
+            </lvc:PieChart.Series>
+        </lvc:PieChart>
+
+
+
+
+        <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left" Grid.Column="1" Margin="227.6,218,10,9">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Notes" Labels="{Binding Labels}"></lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Nombre de media" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
 
     </Grid>
 </Page>

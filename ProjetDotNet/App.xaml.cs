@@ -24,7 +24,7 @@ namespace ProjetDotNet
             base.OnStartup(e);
             String fpath = Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "database.db");
             if (System.IO.File.Exists(fpath)) System.IO.File.Delete(fpath);
-            var context = await DataAccess.DbContext.GetCurrent();
+            /*var context = await DataAccess.DbContext.GetCurrent();
             Class.Genre unGenre = new Class.Genre()
             {
                 nom="Comédie"
@@ -79,7 +79,7 @@ namespace ProjetDotNet
                 Genre = unGenre2
             });
 
-            context.SaveChanges();
+            context.SaveChanges();*/
 
 
         }

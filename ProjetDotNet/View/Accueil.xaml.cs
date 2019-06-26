@@ -32,6 +32,6 @@ namespace ProjetDotNet.View
             base.DataContext = new ViewModel.Accueil(parent);
 
         }
-
+       
     }
 }

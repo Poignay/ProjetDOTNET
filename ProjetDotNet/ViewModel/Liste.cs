@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using static System.Environment;
 
 namespace ProjetDotNet.ViewModel
 {
@@ -15,9 +17,8 @@ namespace ProjetDotNet.ViewModel
         private MainViewModel mvParent;
         public Liste(MainViewModel parent) {
             mvParent = parent;
-            LoadDataTrie();
             Genres = LoadDataGenre().Result;
-            Medias = LoadData().Result;
+            LoadDataTrie();
         }
 
         public ObservableCollection<Class.Genre> Genres {
@@ -88,8 +89,9 @@ namespace ProjetDotNet.ViewModel
             }
             set
             {
-                Medias = LoadData(value).Result;
+
                 SetValue(value);
+                Medias = LoadData(value).Result;
             }
         }
 
@@ -109,6 +111,7 @@ namespace ProjetDotNet.ViewModel
         public void LoadDataTrie() {
             List<String> lTrie = new List<String> { "Aucun","Nom a -> z", "Nom z -> a", "Note 0 -> 5", "Note 5 -> 0" };
             ListeTrie = lTrie;
+            TrieSelectionne="Aucun";
         }
 
         public async Task<ObservableCollection<Class.Media>> LoadData(String value="")
@@ -170,7 +173,7 @@ namespace ProjetDotNet.ViewModel
         {
             mvParent.PageCourante= new View.PageMedia(mvParent);
             
-            mvParent.PageCourante.DataContext = new ViewModel.PageMedia(mvParent, MediaSelectionne);
+            mvParent.PageCourante.DataContext = new ViewModel.PageMedia(mvParent, MediaSelectionne,"Consultation");
         }
 
         public Commands.BaseCommand btnFiltrer
@@ -183,7 +186,25 @@ namespace ProjetDotNet.ViewModel
 
         private void Filtrer()
         {
+            
             Medias = LoadData(TrieSelectionne).Result;
         }
+
+        public Commands.BaseCommand btnAjouter
+        {
+            get
+            {
+                return new Commands.BaseCommand(AjouterMedia);
+            }
+        }
+
+        private void AjouterMedia()
+        {
+            mvParent.PageCourante = new View.PageMedia(mvParent);
+
+            mvParent.PageCourante.DataContext = new ViewModel.PageMedia(mvParent, MediaSelectionne, "Ajout");
+        }
+
+       
     }
 }

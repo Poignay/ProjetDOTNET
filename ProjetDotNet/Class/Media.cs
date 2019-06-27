@@ -52,6 +52,17 @@ namespace ProjetDotNet.Class
             {
                 return Date_Creation.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
             }
+            set
+            {
+                try
+                {
+                    Date_Creation = DateTime.Parse(value);
+                }
+                catch (Exception ex)
+                {
+                    Date_Creation = DateTime.Parse("01/01/2001");
+                }
+            }
         }
 
         [NotMapped]
@@ -97,6 +108,56 @@ namespace ProjetDotNet.Class
                         str += ","+unGenre.Genre.nom ;
                 }
                 return str;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    Ge = value;
+                }
+            }
+        }
+        [NotMapped]
+        public string Pe
+        {
+            get
+            {
+                String str = "";
+                foreach (Media_Personne unePersonne in PersonneMedia)
+                {
+                    if (str == "")
+                        str = unePersonne.Personne.nom+" : "+ unePersonne.Fontion;
+                    else
+                        str += ";" + unePersonne.Personne.nom + " : " + unePersonne.Fontion;
+                }
+                return str;
+            }
+        }
+        [NotMapped]
+        public List<String> GeListe
+        {
+            get
+            {
+                List<String> lGe= new List<string>();
+                foreach (Media_Genre unGenre in Genres)
+                {
+                    lGe.Add(unGenre.Genre.nom);
+                }
+                return lGe;
+            }
+        }
+
+        [NotMapped]
+        public List<String> PersonneListe
+        {
+            get
+            {
+                List<String> lPe = new List<string>();
+                foreach (Media_Personne unePersonne in PersonneMedia)
+                {
+                    lPe.Add(unePersonne.Personne.nom);
+                }
+                return lPe;
             }
         }
 

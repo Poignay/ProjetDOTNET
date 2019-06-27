@@ -34,20 +34,19 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Text="Filtre :" Style="{StaticResource Titre}" Grid.Column="0" Grid.Row="0" />
-
-            <ComboBox SelectedItem="{Binding TrieSelectionne}" ItemsSource="{Binding ListeTrie}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="left">
+            <ComboBox SelectedItem="{Binding TrieSelectionne, Mode=TwoWay}" ItemsSource="{Binding ListeTrie}"  Grid.Column="1" Grid.Row="0" HorizontalAlignment="left">
             </ComboBox>
 
             <TextBlock Text="Titre :" Style="{StaticResource Titre}" Grid.Column="0" Grid.Row="1" />
             <TextBox Text="{Binding tbTitre}" Grid.Column="1" Grid.Row="1" Width="250px" HorizontalAlignment="left" ></TextBox>
 
             <TextBlock Text="Genre :" Style="{StaticResource Titre}" Grid.Column="0" Grid.Row="2" />
-            <ListView ItemsSource="{Binding Genres}" Grid.Column="1" Grid.Row="2"  >
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Focusable" Value="false"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
+            <ItemsControl ItemsSource="{Binding Genres}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="left"  Width="300px" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="3" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -60,12 +59,13 @@
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-            </ListView>
-
+            </ItemsControl>
+           
             <TextBlock Text="Note :" Style="{StaticResource Titre}" Grid.Column="0" Grid.Row="3" />
             <TextBox Text="{Binding tbNote}" Grid.Column="1" Grid.Row="3" Width="50px" HorizontalAlignment="left"></TextBox>
 
-            <Button Command="{Binding btnFiltrer}" Grid.Row="4">Filtrer</Button>
+            <Button Command="{Binding btnFiltrer}" Grid.Row="4" Width="80px" HorizontalAlignment="left" >Filtrer</Button>
+            <Button Command="{Binding btnAjouter}" Grid.Row="4" Grid.Column="1" Width="120px" HorizontalAlignment="left" >Ajouter un média</Button>
             
             <ListBox ItemsSource="{Binding Medias}" HorizontalContentAlignment="Stretch"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"

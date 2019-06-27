@@ -17,7 +17,8 @@ namespace ProjetDotNet.Class
     public enum Langue
     {
         Anglais,
-        Français
+        Français,
+        Aucun
     }
 
     public enum Civilite

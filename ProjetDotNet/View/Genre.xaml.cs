@@ -10,26 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ProjetDotNet.View
 {
     /// <summary>
-    /// Logique d'interaction pour Liste.xaml
+    /// Logique d'interaction pour Genre.xaml
     /// </summary>
-    public partial class Liste : Page
+    public partial class Genre : Window
     {
-        public Liste()
+        public Genre(Class.Media unMedia)
         {
             InitializeComponent();
+            this.DataContext = new ViewModel.Genre(unMedia,this);
         }
-
-        public Liste(ViewModel.MainViewModel parent)
-        { 
-            InitializeComponent();
-            this.DataContext = new ViewModel.Liste(parent);
-        }
-        
+        public List<Class.Genre> valRetour { get; set; }
     }
 }

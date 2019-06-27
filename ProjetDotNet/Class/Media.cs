@@ -70,13 +70,20 @@ namespace ProjetDotNet.Class
         {
             get
             {
-                MemoryStream strmImg = new MemoryStream(Image);
-                BitmapImage myBitmapImage = new BitmapImage();
-                myBitmapImage.BeginInit();
-                myBitmapImage.StreamSource = strmImg;
-                myBitmapImage.DecodePixelWidth = 200;
-                myBitmapImage.EndInit();
-                return myBitmapImage;
+                try
+                {
+                    MemoryStream strmImg = new MemoryStream(Image);
+                    BitmapImage myBitmapImage = new BitmapImage();
+                    myBitmapImage.BeginInit();
+                    myBitmapImage.StreamSource = strmImg;
+                    myBitmapImage.DecodePixelWidth = 200;
+                    myBitmapImage.EndInit();
+                    return myBitmapImage;
+                }catch( Exception ex)
+                {
+                    Console.WriteLine("Crash bitmapimage");
+                    return null;
+                }
             }
             
         }

@@ -21,17 +21,13 @@ namespace ProjetDotNet
 
         protected override async void OnStartup(StartupEventArgs e)
         {
-
-
             base.OnStartup(e);
             String fpath = Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "database.db");
             if (System.IO.File.Exists(fpath)) System.IO.File.Delete(fpath);
-            var context = await DataAccess.DbContext.GetCurrent();
-            
-
+            /*var context = await DataAccess.DbContext.GetCurrent();
             Class.Genre unGenre = new Class.Genre()
             {
-                nom="Horreur"
+                nom="Comédie"
             };
             context.Add(unGenre);
             Class.Genre unGenre2 = new Class.Genre()
@@ -83,9 +79,9 @@ namespace ProjetDotNet
                 Genre = unGenre2
             });
 
-            context.SaveChanges();
-            
-           
+            context.SaveChanges();*/
+
+
         }
         
     }

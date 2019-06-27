@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
+using System.Drawing;
 using System.Collections.ObjectModel;
 using Microsoft.EntityFrameworkCore;
 using System.Windows.Controls;
 using LiveCharts;
 using LiveCharts.Wpf;
+using static System.Environment;
 
 
 namespace ProjetDotNet.ViewModel
@@ -271,10 +274,7 @@ namespace ProjetDotNet.ViewModel
                 nbrNotes = 0;
             }
 
-
-            
-            
-
+           
             valeurSerie = new ChartValues<Double> { nbrSerie };
             valeurFilm = new ChartValues<Double> { nbrFilm };
 
@@ -286,8 +286,6 @@ namespace ProjetDotNet.ViewModel
             valeurMediaAvoir = new ChartValues<Double> { nbrAVoir };
             valeurMediaEnCours = new ChartValues<Double> { nbrEnCours };
            
-
-
 
             // Sélection du nombre de média par note
             ObservableCollection<Class.Media> listeNote0 = new ObservableCollection<Class.Media>(context.Medias.Where(m => m.Note == 0).ToList());
@@ -327,5 +325,207 @@ namespace ProjetDotNet.ViewModel
             Formatter = value => value.ToString("N");
 
         }
+
+        public Commands.BaseCommand CommandePageChange
+        {
+            get
+            {
+                return new Commands.BaseCommand(VoirListe);
+            }
+        }
+
+        private void VoirListe()
+        {
+            mvParent.PageCourante = new View.Liste(mvParent);
+
+            mvParent.PageCourante.DataContext = new ViewModel.Liste(mvParent);
+        }
+
+
+        public Commands.BaseCommand CommandeAjoutDonnee
+        {
+            get
+            {
+                return new Commands.BaseCommand(ajoutFilm);
+            }
+        }
+
+        private async void ajoutFilm()
+        {
+            /*String fpath = Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "../database.db");
+            if (System.IO.File.Exists(fpath)) System.IO.File.Delete(fpath);*/
+
+            var context = await DataAccess.DbContext.GetCurrent();
+        
+            Class.Genre Comedie = new Class.Genre()
+            {
+                nom = "Comédie"
+            };
+            context.Add(Comedie);
+
+            
+            Class.Genre Action = new Class.Genre()
+            {
+                nom = "Action"
+            };
+            context.Add(Action);
+
+            Class.Genre Aventure = new Class.Genre()
+            {
+                nom = "Aventure"
+            };
+            context.Add(Aventure);
+
+            Class.Genre Polar = new Class.Genre()
+            {
+                nom = "Polar"
+            };
+            context.Add(Polar);
+            Class.Genre Animation = new Class.Genre()
+            {
+                nom = "Animation"
+            };
+            context.Add(Animation);
+            Class.Genre Thriller = new Class.Genre()
+            {
+                nom = "Thriller"
+            };
+            context.Add(Thriller);
+            Class.Genre Drame = new Class.Genre()
+            {
+                nom = "Drame"
+            };
+            context.Add(Drame);
+
+
+            System.Drawing.Image image = System.Drawing.Image.FromFile(Directory.GetCurrentDirectory() + "\\Image.jpg");
+            Class.Media Alad2 = new Class.Film()
+            {
+                ImgSet = image,
+                Titre = "Alad'2",
+                Date_Creation = DateTime.Parse("01/04/2019"),
+                Synopsis = "Après avoir libéré Bagdad de l’emprise de son terrible Vizir, Aladin s’ennuie au palais et ne s’est toujours pas décidé à demander en mariage la princesse. Mais un terrible dictateur, Shah Zaman, s’invite au Palais et annonce qu’il est venu prendre la ville et épouser la Princesse. Aladin n’a pas d’autre choix que de s’enfuir du Palais… Il va tenter de récupérer son ancien Génie et revenir en force pour libérer la ville et récupérer sa promise.",
+                Note = 5,
+                Statut = Class.StatutMedia.A_voir,
+                Commentaire = "Super film"
+            };
+            context.Add(Alad2);
+            context.Add(new Class.Media_Genre()
+            {
+                Media = Alad2,
+                Genre = Comedie
+            });
+
+
+            System.Drawing.Image image2 = System.Drawing.Image.FromFile(Directory.GetCurrentDirectory() + "\\Image.jpg");
+            Class.Media AvengerEndGame = new Class.Film()
+            {
+                ImgSet = image2,
+                Titre = "Avengers : Endgame",
+                Date_Creation = DateTime.Parse("24/04/2019"),
+                Synopsis = "Thanos ayant anéanti la moitié de l’univers, les Avengers restants resserrent les rangs dans ce vingt-deuxième film des Studios Marvel, grande conclusion d’un des chapitres de l’Univers Cinématographique Marvel.",
+                Note = 3,
+                Statut = Class.StatutMedia.Vu,
+                Commentaire = "Bofouille"
+            };
+            context.Add(AvengerEndGame);
+
+           
+            context.Add(new Class.Media_Genre()
+            {
+                Media = AvengerEndGame,
+                Genre = Action
+            });
+            context.Add(new Class.Media_Genre()
+            {
+                Media = AvengerEndGame,
+                Genre = Comedie
+            });
+
+
+            System.Drawing.Image aceVenturaPet = System.Drawing.Image.FromFile(Directory.GetCurrentDirectory() + "\\AceVenturaPet.jpg");
+            Class.Media AceVentura = new Class.Film()
+            {
+                ImgSet = aceVenturaPet,
+                Titre = "Ace Ventura, détective animaliers",
+                Date_Creation = DateTime.Parse("04/02/1994 "),
+                Synopsis = "Ace Ventura, un détective pour animaux, enquête sur l'enlevement de Flocon de neige, le dauphin mascotte de l'équipe des Dauphins de Miami. Mais Ace Ventura est un détective aux méthodes un peu particulières et au comportement étrange qui déplaît notamment beaucoup à la police de Miami avec qui il est censé collaborer.",
+                Note = 3,
+                Statut = Class.StatutMedia.A_voir,
+                Commentaire = "Excellent film familiaux à voir! On s'est pété le bide a en rire ahahah"
+            };
+            context.Add(AceVentura);
+          
+            context.Add(new Class.Media_Genre()
+            {
+                Media = AceVentura,
+                Genre = Comedie
+            });
+
+
+
+            System.Drawing.Image yourName = System.Drawing.Image.FromFile(Directory.GetCurrentDirectory() + "\\yourName.jpg");
+            Class.Media YourName = new Class.Film()
+            {
+                ImgSet = yourName,
+                Titre = "Your Name ",
+                Date_Creation = DateTime.Parse("28/12/2016"),
+                Synopsis = "Mitsuha, adolescente coincée dans une famille traditionnelle, rêve de quitter ses montagnes natales pour découvrir la vie trépidante de Tokyo. Elle est loin d'imaginer pouvoir vivre l'aventure urbaine dans la peau de... Taki, un jeune lycéen vivant à Tokyo. À travers ses rêves, Mitsuha se voit littéralement propulsée dans la vie du jeune garçon. Quel mystère se cache derrière ces rêves étranges qui unissent deux destinées que tout oppose et qui ne se sont jamais rencontrées ?",
+                Note = 5,
+                Statut = Class.StatutMedia.Vu,
+                Commentaire = "Absolument touchant, le travail de la DA est fantastique. Le film est A VOIR si vous êtes fans de japanimation"
+            };
+            context.Add(YourName);
+
+            context.Add(new Class.Media_Genre()
+            {
+                Media = YourName,
+                Genre = Animation
+
+            });
+
+            context.Add(new Class.Media_Genre()
+            {
+                Media = YourName,
+                Genre = Drame
+
+            });
+
+            System.Drawing.Image PeakyBlinders = System.Drawing.Image.FromFile(Directory.GetCurrentDirectory() + "\\PeakyBlinder.jpg");
+            Class.Media PeakyBlinder = new Class.Serie()
+            {
+                ImgSet = PeakyBlinders,
+                Titre = "Peaky Blinders ",
+                Date_Creation = DateTime.Parse("12/09/2013"),
+                Synopsis = "Birmingham, en 1919. Un gang familial règne sur un quartier de la ville : les Peaky Blinders, ainsi nommés pour les lames de rasoir qu'ils cachent dans la visière de leur casquette.",
+                Note = 5,
+                Statut = Class.StatutMedia.En_cours,
+                Commentaire = "Absolument touchant, le travail de la DA est fantastique. Le film est A VOIR si vous êtes fans de japanimation",
+                Nb_Saison = 5,
+                Duree = 22
+            
+            };
+            context.Add(PeakyBlinder);
+
+            context.Add(new Class.Media_Genre()
+            {
+                Media = PeakyBlinder,
+                Genre = Drame
+
+            });
+
+            context.Add(new Class.Media_Genre()
+            {
+                Media = PeakyBlinder,
+                Genre = Action
+
+            });
+
+            context.SaveChanges();
+            LoadComboBox();
+
+
+        }
+
     }
 }

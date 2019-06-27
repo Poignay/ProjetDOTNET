@@ -36,6 +36,28 @@
             <Setter Property="Foreground" Value="#004d40" />
         </Style>
 
+        <Style x:Key="Bouton" TargetType="Button">
+            <Setter Property="Control.Background" Value="#004d40" />
+            <Setter Property="Control.BorderBrush"  Value="#2c2f34" />
+            <Setter Property="Control.BorderThickness"  Value="3" />
+            <Style.Triggers>
+                <Trigger Property="Control.IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2c2f34" />
+                    <Setter Property="Control.Foreground" Value="#004d40" />
+                    <Setter Property="Control.BorderBrush" Value="#004d40" />
+                    <Setter Property="Control.BorderThickness"  Value="3" />
+                    <Setter Property="Control.FontWeight" Value="Bold" />
+                </Trigger>
+                <Trigger Property="Control.IsFocused" Value="True">
+                    <Setter Property="Background" Value="#2c2f34" />
+                    <Setter Property="Foreground" Value="#004d40" />
+                    <Setter Property="Control.BorderBrush" Value="#004d40" />
+                    <Setter Property="Control.BorderThickness"  Value="3" />
+                    <Setter Property="Control.FontWeight" Value="Bold" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <!-- Flat ComboBox -->
         <SolidColorBrush x:Key="ComboBoxNormalBorderBrush" Color="#004d40"  />
         <SolidColorBrush x:Key="ComboBoxNormalBackgroundBrush" Color="#2c2f34" />
@@ -174,8 +196,8 @@
 
     <Grid Background="#2c2f34" Margin="0,0,0,-0.4">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="77*"/>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
 
@@ -229,9 +251,14 @@
             <TextBlock Style="{StaticResource Texte}" Canvas.Left="9" TextWrapping="Wrap" Text="Il y a" Canvas.Top="330"/>
             <TextBlock Style="{StaticResource Reponse}" Canvas.Left="40" TextWrapping="Wrap" Text="{Binding nbrNotes}" Canvas.Top="327"/>
             <TextBlock Style="{StaticResource Texte}" Canvas.Left="57" TextWrapping="Wrap" Text="média de la note choisie" Canvas.Top="330" Margin="0"/>
+
+
+            <Button x:Name="boutonGoToList" Command="{Binding CommandePageChange}" Style="{StaticResource Bouton}" Content="Voir la liste" Canvas.Left="10" Canvas.Top="355" Width="88" Height="25"/>
+            <Button x:Name="boutonAddMedia" Command="{Binding CommandeAjoutDonnee}"  Style="{StaticResource Bouton}" Content="Ajout donnees" Canvas.Left="141" Canvas.Top="355" Width="88" Height="25"/>
+
         </Canvas>
 
-        <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="5" Canvas.Top="10" Margin="230.6,2,276,235" Grid.Column="1" RenderTransformOrigin="0.5,0.5">
+        <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="5" Canvas.Top="10" Margin="36.6,7,-117.6,250" Grid.Column="1" RenderTransformOrigin="0.5,0.5"  HorizontalAlignment="Left" Width="213">
             <lvc:PieChart.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -247,7 +274,7 @@
         </lvc:PieChart>
 
 
-        <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="5" Canvas.Top="10" Grid.Column="1" Margin="494.6,0,0,232">
+        <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="5" Canvas.Top="10" Grid.Column="1" Margin="328.6,18,-384.6,245">
             <lvc:PieChart.Series>
                 <lvc:PieSeries Title="Média vu" Values="{Binding valeurMediaVu}" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
                 <lvc:PieSeries Title="Média à voir" Values="{Binding valeurMediaAvoir}" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
@@ -259,7 +286,7 @@
 
 
 
-        <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left" Grid.Column="1" Margin="227.6,218,10,9">
+        <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left" Grid.Column="1" Margin="0.6,230,-384.6,0">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Title="Notes" Labels="{Binding Labels}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Drawing;
 using System.Collections.ObjectModel;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using System.Windows.Controls;
 using LiveCharts;
 using LiveCharts.Wpf;
 using static System.Environment;
+using LiveCharts.Defaults;
 
 
 namespace ProjetDotNet.ViewModel
@@ -26,26 +28,26 @@ namespace ProjetDotNet.ViewModel
 
         public int nbrMedia
         {
-            get{return GetValue<int>();}
-            set{SetValue(value);}
+            get { return GetValue<int>(); }
+            set { SetValue(value); }
         }
 
         public int nbrFilm
         {
-            get{return GetValue<int>();}
-            set{SetValue(value);}
+            get { return GetValue<int>(); }
+            set { SetValue(value); }
         }
 
         public int nbrSerie
         {
-            get{return GetValue<int>();}
-            set{SetValue(value);}
+            get { return GetValue<int>(); }
+            set { SetValue(value); }
         }
 
         public int nbrAVoir
         {
-            get{return GetValue<int>();}
-            set{SetValue(value);}
+            get { return GetValue<int>(); }
+            set { SetValue(value); }
         }
 
         public int nbrVu
@@ -62,21 +64,21 @@ namespace ProjetDotNet.ViewModel
 
         public int nbrDansGenre
         {
-            get{return GetValue<int>();}
-            set{SetValue(value);}
+            get { return GetValue<int>(); }
+            set { SetValue(value); }
         }
 
         public int nbrNotes
         {
-            get{return GetValue<int>();}
-            set{SetValue(value);}
+            get { return GetValue<int>(); }
+            set { SetValue(value); }
         }
 
         //Radiobuttons:
         public Boolean isChecked1
         {
-            get{return GetValue<Boolean>();}
-            set{SetValue(value); LoadData(); }
+            get { return GetValue<Boolean>(); }
+            set { SetValue(value); LoadData(); }
         }
 
         public Boolean isChecked2
@@ -106,9 +108,9 @@ namespace ProjetDotNet.ViewModel
 
         public ObservableCollection<String> typeCBox
         {
-            get{return GetValue<ObservableCollection<String>>();}
+            get { return GetValue<ObservableCollection<String>>(); }
 
-            set{SetValue(value);}
+            set { SetValue(value); }
         }
 
         public String typeCBoxSelected
@@ -120,7 +122,7 @@ namespace ProjetDotNet.ViewModel
         public ChartValues<double> valeurFilm
         {
             get { return GetValue<ChartValues<double>>(); }
-            set { SetValue(value);}
+            set { SetValue(value); }
         }
 
         public ChartValues<double> valeurSerie
@@ -185,6 +187,41 @@ namespace ProjetDotNet.ViewModel
             set { SetValue(value); }
         }
 
+        public ChartValues<double> valeurNote0
+        {
+            get { return GetValue<ChartValues<double>>(); }
+            set { SetValue(value); }
+        }
+
+        public ChartValues<double> valeurNote1
+        {
+            get { return GetValue<ChartValues<double>>(); }
+            set { SetValue(value); }
+        }
+
+        public ChartValues<double> valeurNote2
+        {
+            get { return GetValue<ChartValues<double>>(); }
+            set { SetValue(value); }
+        }
+
+        public ChartValues<double> valeurNote3
+        {
+            get { return GetValue<ChartValues<double>>(); }
+            set { SetValue(value); }
+        }
+
+        public ChartValues<double> valeurNote4
+        {
+            get { return GetValue<ChartValues<double>>(); }
+            set { SetValue(value); }
+        }
+
+        public ChartValues<double> valeurNote5
+        {
+            get { return GetValue<ChartValues<double>>(); }
+            set { SetValue(value); }
+        }
 
         public async Task LoadComboBox()
         {
@@ -201,14 +238,14 @@ namespace ProjetDotNet.ViewModel
             typeCBox = listString;
 
             LoadData();
-           
+
         }
 
         public Func<ChartPoint, string> PointLabel { get; set; }
 
         public SeriesCollection SeriesCollection { get; set; }
-        public string[] Labels { get; set; }
-        public Func<double, string> Formatter { get; set; }
+
+
 
 
         public async Task LoadData()
@@ -224,7 +261,7 @@ namespace ProjetDotNet.ViewModel
             // Sélection du nombre de total de film
             ObservableCollection<Class.Media> allFilm = new ObservableCollection<Class.Media>(context.Films.ToList());
 
-            nbrFilm = allFilm.Count ;
+            nbrFilm = allFilm.Count;
 
 
             // Sélection du nombre de total de serie
@@ -233,7 +270,7 @@ namespace ProjetDotNet.ViewModel
             nbrSerie = allSerie.Count;
 
             //Sélection du nombre de films/Séries à voir
-            ObservableCollection<Class.Media> aVoir = new ObservableCollection<Class.Media>(context.Medias.Where(m=> m.Statut.ToString() == "A_voir").ToList());
+            ObservableCollection<Class.Media> aVoir = new ObservableCollection<Class.Media>(context.Medias.Where(m => m.Statut.ToString() == "A_voir").ToList());
 
             nbrAVoir = aVoir.Count;
 
@@ -254,27 +291,27 @@ namespace ProjetDotNet.ViewModel
 
 
             //Sélections des films suivant la notes:
-            if(isChecked1 == true)
+            if (isChecked1 == true)
             {
                 ObservableCollection<Class.Media> deLaNote = new ObservableCollection<Class.Media>(context.Medias.Where(m => m.Note == 1).ToList());
                 nbrNotes = deLaNote.Count;
-            }else if(isChecked2 == true){
-                    ObservableCollection<Class.Media> deLaNote = new ObservableCollection<Class.Media>(context.Medias.Where(m => m.Note == 2).ToList());
-                    nbrNotes = deLaNote.Count;
-            }else if (isChecked3 == true){
+            } else if (isChecked2 == true) {
+                ObservableCollection<Class.Media> deLaNote = new ObservableCollection<Class.Media>(context.Medias.Where(m => m.Note == 2).ToList());
+                nbrNotes = deLaNote.Count;
+            } else if (isChecked3 == true) {
                 ObservableCollection<Class.Media> deLaNote = new ObservableCollection<Class.Media>(context.Medias.Where(m => m.Note == 3).ToList());
                 nbrNotes = deLaNote.Count;
-            }else if (isChecked4 == true){
+            } else if (isChecked4 == true) {
                 ObservableCollection<Class.Media> deLaNote = new ObservableCollection<Class.Media>(context.Medias.Where(m => m.Note == 4).ToList());
                 nbrNotes = deLaNote.Count;
-            }else if (isChecked5 == true){
+            } else if (isChecked5 == true) {
                 ObservableCollection<Class.Media> deLaNote = new ObservableCollection<Class.Media>(context.Medias.Where(m => m.Note == 5).ToList());
                 nbrNotes = deLaNote.Count;
-            }else{
+            } else {
                 nbrNotes = 0;
             }
 
-           
+
             valeurSerie = new ChartValues<Double> { nbrSerie };
             valeurFilm = new ChartValues<Double> { nbrFilm };
 
@@ -285,7 +322,7 @@ namespace ProjetDotNet.ViewModel
             valeurMediaVu = new ChartValues<Double> { nbrVu };
             valeurMediaAvoir = new ChartValues<Double> { nbrAVoir };
             valeurMediaEnCours = new ChartValues<Double> { nbrEnCours };
-           
+
 
             // Sélection du nombre de média par note
             ObservableCollection<Class.Media> listeNote0 = new ObservableCollection<Class.Media>(context.Medias.Where(m => m.Note == 0).ToList());
@@ -303,29 +340,21 @@ namespace ProjetDotNet.ViewModel
             ObservableCollection<Class.Media> listeNote4 = new ObservableCollection<Class.Media>(context.Medias.Where(m => m.Note == 4).ToList());
             note4 = listeNote4.Count;
 
-            ObservableCollection<Class.Media> listeNote5 = new ObservableCollection<Class.Media>(context.Medias.Where(m => m.Note == 5).ToList());
+            ObservableCollection<Class.Film> listeNote5 = new ObservableCollection<Class.Film>(context.Films.Where(m => m.Note == 5).ToList());
             note5 = listeNote5.Count;
 
+            valeurNote0 = new ChartValues<Double> { note0 };
+            valeurNote1 = new ChartValues<Double> { note1 };
+            valeurNote2 = new ChartValues<Double> { note2 };
+            valeurNote3 = new ChartValues<Double> { note3 };
+            valeurNote4 = new ChartValues<Double> { note4 };
+            valeurNote5 = new ChartValues<Double> { note5 };
 
-            SeriesCollection = new SeriesCollection
-            {
-                new ColumnSeries
-                {
-                    Title = "Nombre média",
-                    Values = new ChartValues<double> { note0, note1, note2, note3, note4, note5}
-                }
-            };
 
-            
-
-            Labels = new string[] {"0","1","2","3","4","5"};
-
-            
-
-            Formatter = value => value.ToString("N");
 
         }
 
+        
         public Commands.BaseCommand CommandePageChange
         {
             get
@@ -500,7 +529,7 @@ namespace ProjetDotNet.ViewModel
                 Synopsis = "Birmingham, en 1919. Un gang familial règne sur un quartier de la ville : les Peaky Blinders, ainsi nommés pour les lames de rasoir qu'ils cachent dans la visière de leur casquette.",
                 Note = 5,
                 Statut = Class.StatutMedia.En_cours,
-                Commentaire = "Absolument touchant, le travail de la DA est fantastique. Le film est A VOIR si vous êtes fans de japanimation",
+                Commentaire = "Absolument touchant, le travail de la DA est fantastique. Le série est incroyable",
                 Nb_Saison = 5,
                 Duree = 22
             

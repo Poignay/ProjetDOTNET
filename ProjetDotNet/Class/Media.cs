@@ -81,7 +81,6 @@ namespace ProjetDotNet.Class
                     return myBitmapImage;
                 }catch( Exception ex)
                 {
-                    Console.WriteLine("Crash bitmapimage");
                     return null;
                 }
             }
@@ -99,8 +98,15 @@ namespace ProjetDotNet.Class
         }
     
 
-    [InverseProperty(nameof(Media_Genre.Media))]
+        [InverseProperty(nameof(Media_Genre.Media))]
         public List<Media_Genre> Genres { get; set; }
+
+
+        [InverseProperty(nameof(Pret.Media))]
+        public List<Pret> PersonnePret { get; set; }
+
+        [InverseProperty(nameof(Media_Personne.Media))]
+        public List<Media_Personne> PersonneMedia { get; set; }
 
         [NotMapped]
         public string Ge
@@ -108,34 +114,36 @@ namespace ProjetDotNet.Class
             get
             {
                 String str = "";
-                foreach (Media_Genre unGenre in Genres) {
-                   if (str=="")
-                        str = unGenre.Genre.nom ;
-                   else
-                        str += ","+unGenre.Genre.nom ;
+
+                if (Genres != null)
+                {
+                    foreach (Media_Genre unGenre in Genres)
+                    {
+                        if (str == "")
+                            str = unGenre.Genre.nom;
+                        else
+                            str += "," + unGenre.Genre.nom;
+                    }
                 }
                 return str;
             }
-            set
-            {
-                if (value != null)
-                {
-                    Ge = value;
-                }
-            }
         }
+
         [NotMapped]
         public string Pe
         {
             get
             {
                 String str = "";
-                foreach (Media_Personne unePersonne in PersonneMedia)
+                if (PersonneMedia != null)
                 {
-                    if (str == "")
-                        str = unePersonne.Personne.nom+" : "+ unePersonne.Fontion;
-                    else
-                        str += ";" + unePersonne.Personne.nom + " : " + unePersonne.Fontion;
+                    foreach (Media_Personne unePersonne in PersonneMedia)
+                    {
+                        if (str == "")
+                            str = unePersonne.Personne.nom + " : " + unePersonne.Fontion;
+                        else
+                            str += ";" + unePersonne.Personne.nom + " : " + unePersonne.Fontion;
+                    }
                 }
                 return str;
             }
@@ -145,12 +153,20 @@ namespace ProjetDotNet.Class
         {
             get
             {
-                List<String> lGe= new List<string>();
-                foreach (Media_Genre unGenre in Genres)
+
+                List<String> lGe = new List<string>();
+                try
                 {
-                    lGe.Add(unGenre.Genre.nom);
+                    foreach (Media_Genre unGenre in Genres)
+                    {
+                        lGe.Add(unGenre.Genre.nom);
+                    }
+                    return lGe;
                 }
-                return lGe;
+                catch (Exception ex)
+                {
+                    return lGe;
+                }
             }
         }
 
@@ -160,52 +176,21 @@ namespace ProjetDotNet.Class
             get
             {
                 List<String> lPe = new List<string>();
-                foreach (Media_Personne unePersonne in PersonneMedia)
+                try
+                {
+                    foreach (Media_Personne unePersonne in PersonneMedia)
                 {
                     lPe.Add(unePersonne.Personne.nom);
                 }
                 return lPe;
+                }
+                catch (Exception ex)
+                {
+                    return lPe;
+                }
             }
         }
-
-        [NotMapped]
-        public string AudioDes
-        {
-            get
-            {
-                if(Audio_Description) return "Oui";
-                else return "Non";
-
-            }
-        }
-
-        [NotMapped]
-        public string SupportPhy
-        {
-            get
-            {
-                if (Support_physique) return "Oui";
-                else return "Non";
-
-            }
-        }
-
-        [NotMapped]
-        public string SupportNum
-        {
-            get
-            {
-                if (Support_numerique) return "Oui";
-                else return "Non";
-
-            }
-        }
-
-        [InverseProperty(nameof(Pret.Media))]
-        public List<Pret> PersonnePret { get; set; }
-
-        [InverseProperty(nameof(Media_Personne.Media))]
-        public List<Media_Personne> PersonneMedia { get; set; }
+        
 
 
     }

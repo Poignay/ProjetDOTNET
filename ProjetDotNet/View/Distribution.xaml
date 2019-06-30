@@ -1,0 +1,55 @@
+﻿<Window x:Class="ProjetDotNet.View.Distribution"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjetDotNet.View"
+        mc:Ignorable="d"
+        Title="Distribution" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Button Command="{Binding CreerPersonne}" Width="200px" Grid.Row="0" Grid.Column="0">Créer une personne</Button>
+
+        <Button Command="{Binding AjoutLigne}" Width="200px" Grid.Row="0" Grid.Column="1">Ajouter un ligne</Button>
+
+        <ItemsControl ItemsSource="{Binding ListeDistribution}" Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="3" >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="1" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Personne :" Grid.Column="0"></TextBlock>
+                        <ComboBox SelectedItem="{Binding NomPrenom}" ItemsSource="{Binding ListePersonne}" 
+                                    Grid.Column="1" Width="200"></ComboBox>
+                        <TextBlock Text="Personne :" Grid.Column="2"></TextBlock>
+                        <ComboBox SelectedItem="{Binding MediaPersonne.fonction}" ItemsSource="{Binding ListeFonction}" 
+                                    Grid.Column="3"  Width="200"></ComboBox>
+                        <Button Width="100px" Grid.Column="4" Command="{Binding SupprLigne}" CommandParameter="{Binding }">Supprimer</Button>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Button Command="{Binding ValiderDistribution}" Width="100px" Grid.Column="0" Grid.Row="2">Valider</Button>
+    </Grid>
+</Window>

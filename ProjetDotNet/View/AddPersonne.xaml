@@ -1,0 +1,65 @@
+﻿<Window x:Class="ProjetDotNet.View.AddPersonne"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjetDotNet.View"
+        mc:Ignorable="d"
+        Title="Ajout Personne" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="Champs" TargetType="TextBox">
+            <Setter Property="Width" Value="250px" />
+            <Setter Property="HorizontalAlignment" Value="left" />
+        </Style>
+        <Style x:Key="ChampsCb" TargetType="ComboBox">
+            <Setter Property="Width" Value="250px" />
+            <Setter Property="HorizontalAlignment" Value="left" />
+        </Style>
+        <Style x:Key="Libelle" TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Nom :" Grid.Column="0" Grid.Row="0" Style="{StaticResource Libelle}"/>
+        <TextBox Text="{Binding unePersonne.nom}" Grid.Column="1" Grid.Row="0" Style="{StaticResource Champs}" ></TextBox>
+
+        <TextBlock Text="Prénom :" Grid.Column="0" Grid.Row="1" Style="{StaticResource Libelle}"/>
+        <TextBox Text="{Binding unePersonne.prenom}" Grid.Column="1" Grid.Row="1" Style="{StaticResource Champs}" ></TextBox>
+
+        <TextBlock Text="Civilité :" Grid.Column="0" Grid.Row="2" Style="{StaticResource Libelle}"/>
+        <ComboBox SelectedItem="{Binding unePersonne.Civilite, Mode=TwoWay}" ItemsSource="{Binding ListeCivilité}" 
+                  Grid.Column="1" Grid.Row="2" Style="{StaticResource ChampsCb}">
+        </ComboBox>
+
+        <TextBlock Text="Nationalité :" Grid.Column="0" Grid.Row="3" Style="{StaticResource Libelle}"/>
+        <ComboBox SelectedItem="{Binding unePersonne.Nationalite, Mode=TwoWay}" ItemsSource="{Binding ListeNationalite}" 
+                  Grid.Column="1" Grid.Row="3" Style="{StaticResource ChampsCb}">
+        </ComboBox>
+
+        <TextBlock Text="Photo :" Style="{StaticResource Libelle}" Visibility="{Binding titreVisi}"  Grid.Row="4" Grid.Column="0"/>
+        <Button Command="{Binding Parcourir}" Width="80px" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Visibility="{Binding titreVisi}">Parcourir</Button>
+        <TextBlock Text="{Binding tbParcourir}" Visibility="{Binding titreVisi}" Grid.Row="4"  Grid.Column="2" HorizontalAlignment="Left" />
+        <Image Source="{Binding unePersonne.Img}" Width="90" Grid.Row="5" Grid.ColumnSpan="3" Grid.Column="0" HorizontalAlignment="left"></Image>
+
+        <CheckBox IsChecked="{Binding unePersonne.Ami}" Content="Ami" Grid.Row="6" Grid.Column="0"></CheckBox>
+
+        <Button Command="{Binding Ajouter}" Grid.Row="7" Grid.Column="0">Ajouter</Button>
+    </Grid>
+</Window>

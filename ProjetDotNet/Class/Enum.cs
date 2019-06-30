@@ -16,13 +16,14 @@ namespace ProjetDotNet.Class
 
     public enum Langue
     {
+        Aucun,
         Anglais,
-        Français,
-        Aucun
+        Français
     }
 
     public enum Civilite
     {
+        Aucun,
         Monsieur,
         Madame,
         PersoneMorale
@@ -30,6 +31,7 @@ namespace ProjetDotNet.Class
 
     public enum Fonction
     {
+        Aucun,
         Producteur,
         Acteur,
         Réalisateur,

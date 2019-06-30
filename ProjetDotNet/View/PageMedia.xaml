@@ -54,22 +54,25 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
             <TextBlock Text="{Binding unMedia.Titre}" Style="{StaticResource GrosTitre}" Grid.Row="0" Grid.ColumnSpan="4" Grid.Column="0" />
 
             <Image Source="{Binding unMedia.Img}" Width="90" Grid.Row="1" Grid.ColumnSpan="4" Grid.Column="0"></Image>
-
-            <TextBlock Text="Date de création :" Style="{StaticResource Titre}"  Grid.Row="3" Grid.Column="0" />
-            <TextBox Text="{Binding unMedia.DateCrea, Mode=TwoWay}" Style="{StaticResource LibelleTB}" IsEnabled="{Binding ena}"  Grid.Row="3" Grid.Column="1" />
+            
+            <TextBlock Text="Date de création :" Style="{StaticResource Titre}"  Grid.Row="17" Grid.Column="0" />
+            <TextBox Text="{Binding unMedia.DateCrea, Mode=TwoWay}" Style="{StaticResource LibelleTB}" IsEnabled="{Binding ena}"  Grid.Row="17" Grid.Column="1" />
 
             <TextBlock Text="Genre :" Style="{StaticResource Titre}"   Grid.Row="6" Grid.Column="0"/>
-            <TextBox Text="{Binding unMedia.Ge, Mode=TwoWay}" IsEnabled="False"  Style="{StaticResource LibelleTB}" Grid.Row="6" Grid.Column="1"/>
+            <TextBox Text="{Binding listeGenre, Mode=TwoWay}" IsEnabled="False"  Style="{StaticResource LibelleTB}" Grid.Row="6" Grid.Column="1"/>
             <Button Command="{Binding AddGenre}" Grid.Row="6" Grid.Column="2" IsEnabled="{Binding ena}" >Modifier le genre</Button>
             
             <TextBlock Text="Distribution :" Style="{StaticResource Titre}" Grid.Row="4" Grid.Column="0"/>
-            <TextBox Text="{Binding unMedia.Pe, Mode=Oneway}" Style="{StaticResource LibelleTB}"  IsEnabled="False" Grid.Row="4" Grid.Column="1"/>
+            <TextBox Text="{Binding listeDis, Mode=Oneway}" Style="{StaticResource LibelleTB}"  IsEnabled="False" Grid.Row="4" Grid.Column="1"/>
             <Button Command="{Binding AddPersonne}" Grid.Row="4" Grid.Column="2" IsEnabled="{Binding ena}" >Modifier la distribution</Button>
             
             <TextBlock Text="Synopsis :" Style="{StaticResource Titre}"  Grid.Row="5" Grid.Column="0"/>
@@ -82,8 +85,9 @@
             <TextBox Text="{Binding unMedia.Commentaire, Mode=TwoWay}" Style="{StaticResource LibelleTB}" IsEnabled="{Binding ena}"   Grid.Row="7" Grid.Column="1"/>
 
             <TextBlock Text="Statut :" Style="{StaticResource Titre}"   Grid.Row="8" Grid.Column="0"/>
-            <TextBox Text="{Binding unMedia.Statut, Mode=TwoWay}" Style="{StaticResource LibelleTB}"  IsEnabled="{Binding ena}"  Grid.Row="8" Grid.Column="1"/>
-        
+            <ComboBox SelectedItem="{Binding unMedia.Statut, Mode=TwoWay}" ItemsSource="{Binding SourceStatut}" IsEnabled="{Binding ena}"  Grid.Column="1" Grid.Row="8" HorizontalAlignment="left">
+            </ComboBox>
+            
             <TextBlock Text="Age minimum :" Style="{StaticResource Titre}"   Grid.Row="9" Grid.Column="0"/>
             <TextBox Text="{Binding unMedia.Age_minimum, Mode=TwoWay}" Style="{StaticResource LibelleTB}" IsEnabled="{Binding ena}"   Grid.Row="9" Grid.Column="1"/>
 
@@ -103,21 +107,30 @@
             <CheckBox IsChecked="{Binding unMedia.Audio_Description}" IsEnabled="{Binding ena}"  Grid.Row="13" Grid.Column="1"></CheckBox>
 
             <TextBlock Text="Support physique :" Style="{StaticResource Titre}"   Grid.Row="14" Grid.Column="0"/>
-            <TextBox Text="{Binding unMedia.SupportPhy, Mode=OneWay}" Style="{StaticResource LibelleTB}" IsEnabled="{Binding ena}"   Grid.Row="14" Grid.Column="1"/>
+            <CheckBox IsChecked="{Binding unMedia.Support_physique}" IsEnabled="{Binding ena}"  Grid.Row="14" Grid.Column="1"></CheckBox>
 
             <TextBlock Text="Support numerique :" Style="{StaticResource Titre}"   Grid.Row="15" Grid.Column="0"/>
-            <TextBox Text="{Binding unMedia.SupportNum, Mode=OneWay}" Style="{StaticResource LibelleTB}"  IsEnabled="{Binding ena}" Grid.Row="15" Grid.Column="1"/>
+            <CheckBox IsChecked="{Binding unMedia.Support_numerique}" IsEnabled="{Binding ena}"  Grid.Row="15" Grid.Column="1"></CheckBox>
 
-            <TextBlock Text="Titre :" Style="{StaticResource Titre}" Visibility="{Binding titreVisi}"  Grid.Row="17" Grid.Column="0"/>
-            <TextBox Text="{Binding unMedia.Titre}" Visibility="{Binding titreVisi}" Grid.Row="17"  Grid.Column="1" />
+            <TextBlock Text="Titre :" Style="{StaticResource Titre}" Visibility="{Binding titreVisi}"  Grid.Row="3" Grid.Column="0"/>
+            <TextBox Text="{Binding unMedia.Titre}" Visibility="{Binding titreVisi}" Grid.Row="3"  Grid.Column="1" />
 
             <TextBlock Text="Photo :" Style="{StaticResource Titre}" Visibility="{Binding titreVisi}"  Grid.Row="18" Grid.Column="0"/>
             <Button Command="{Binding Parcourir}" Width="80px" Grid.Row="18" Grid.Column="1" HorizontalAlignment="Left" Visibility="{Binding titreVisi}">Parcourir</Button>
             <TextBlock Text="{Binding tbParcourir}" Visibility="{Binding titreVisi}" Grid.Row="18"  Grid.Column="2" HorizontalAlignment="Left" />
-            
-            <Button Command="{Binding ModifActif}" Width="80px" Grid.Row="19" Grid.Column="0" Visibility="{Binding btnActiveModif}">Modifier</Button>
-            <Button Command="{Binding AjouterMedia}" Width="80px" Grid.Row="19" Grid.Column="0" Visibility="{Binding btnAjouter}">Ajouter</Button>
-            <Button Command="{Binding ModifierMedia}" Width="80px" Grid.Row="19" Grid.Column="0" Visibility="{Binding btnModifier}">Modifier</Button>
+
+            <RadioButton IsChecked="{Binding film}" Command="{Binding FilmChk}" IsEnabled="{Binding enaFilmSerie}" GroupName="Media" Content="Film" Grid.Row="2"  Grid.Column="0"></RadioButton>
+            <RadioButton IsChecked="{Binding serie}" Command="{Binding SerieChk}" GroupName="Media" IsEnabled="{Binding enaFilmSerie}" Content="Série" Grid.Row="2"  Grid.Column="1"></RadioButton>
+
+            <TextBlock Text="Durée :" Style="{StaticResource Titre}" Visibility="{Binding VisiDuree}"  Grid.Row="20" Grid.Column="0"/>
+            <TextBox Text="{Binding unMedia.Duree}" Visibility="{Binding VisiDuree}" IsEnabled="{Binding ena}" Grid.Row="20"  Grid.Column="1" />
+
+            <TextBlock Text="Nombre de saison :" Style="{StaticResource Titre}" Visibility="{Binding VisiNbSaison}"  Grid.Row="21" Grid.Column="0"/>
+            <TextBox Text="{Binding unMedia.Nb_Saison}" Visibility="{Binding VisiNbSaison}" IsEnabled="{Binding ena}" Grid.Row="21"  Grid.Column="1" />
+
+            <Button Command="{Binding ModifActif}" Width="80px" Grid.Row="22" Grid.Column="0" Visibility="{Binding btnActiveModif}">Modifier</Button>
+            <Button Command="{Binding AjouterMedia}" Width="80px" Grid.Row="22" Grid.Column="0" Visibility="{Binding btnAjouter}">Ajouter</Button>
+            <Button Command="{Binding ModifierMedia}" Width="80px" Grid.Row="22" Grid.Column="0" Visibility="{Binding btnModifier}">Modifier</Button>
         </Grid>
     </ScrollViewer>
 </Page>

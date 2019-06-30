@@ -354,7 +354,7 @@ namespace ProjetDotNet.ViewModel
         {
             /*String fpath = Path.Combine(GetFolderPath(SpecialFolder.LocalApplicationData), "../database.db");
             if (System.IO.File.Exists(fpath)) System.IO.File.Delete(fpath);*/
-
+            
             var context = await DataAccess.DbContext.GetCurrent();
         
             Class.Genre Comedie = new Class.Genre()
@@ -407,7 +407,9 @@ namespace ProjetDotNet.ViewModel
                 Synopsis = "Après avoir libéré Bagdad de l’emprise de son terrible Vizir, Aladin s’ennuie au palais et ne s’est toujours pas décidé à demander en mariage la princesse. Mais un terrible dictateur, Shah Zaman, s’invite au Palais et annonce qu’il est venu prendre la ville et épouser la Princesse. Aladin n’a pas d’autre choix que de s’enfuir du Palais… Il va tenter de récupérer son ancien Génie et revenir en force pour libérer la ville et récupérer sa promise.",
                 Note = 5,
                 Statut = Class.StatutMedia.A_voir,
-                Commentaire = "Super film"
+                Commentaire = "Super film",
+                Duree =new TimeSpan(1,0,0)
+         
             };
             context.Add(Alad2);
             context.Add(new Class.Media_Genre()

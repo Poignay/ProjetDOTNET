@@ -186,6 +186,8 @@
     </Compile>
     <Compile Include="Migrations\DbContextModelSnapshot.cs" />
     <Compile Include="ViewModel\Accueil.cs" />
+    <Compile Include="ViewModel\AddPersonne.cs" />
+    <Compile Include="ViewModel\Distribution.cs" />
     <Compile Include="ViewModel\Genre.cs" />
     <Compile Include="ViewModel\Inotifier.cs" />
     <Compile Include="ViewModel\Liste.cs" />
@@ -193,6 +195,12 @@
     <Compile Include="ViewModel\PageMedia.cs" />
     <Compile Include="View\Accueil.xaml.cs">
       <DependentUpon>Accueil.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddPersonne.xaml.cs">
+      <DependentUpon>AddPersonne.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Distribution.xaml.cs">
+      <DependentUpon>Distribution.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Genre.xaml.cs">
       <DependentUpon>Genre.xaml</DependentUpon>
@@ -228,6 +236,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\Accueil.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddPersonne.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Distribution.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

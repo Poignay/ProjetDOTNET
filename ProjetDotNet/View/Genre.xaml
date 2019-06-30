@@ -39,12 +39,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <CheckBox Grid.Column="0" IsChecked="{Binding chk}"></CheckBox>
-                        <TextBlock Text="{Binding nom}" Grid.Column="1"></TextBlock>
+                        <CheckBox IsChecked="{Binding chk}" Content="{Binding nom}"></CheckBox>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

@@ -210,7 +210,7 @@
                     <TranslateTransform Y="-0.4"/>
                 </TransformGroup>
             </Canvas.RenderTransform>
-            <ComboBox x:Name="categoryComboBox" Style="{DynamicResource  ComboBoxFlatStyle}" Canvas.Top="227" Width="148" Canvas.Left="9" ItemsSource="{Binding typeCBox}"   
+            <ComboBox Style="{DynamicResource  ComboBoxFlatStyle}" Canvas.Top="227" Width="148" Canvas.Left="9" ItemsSource="{Binding typeCBox}"   
                 SelectedItem="{Binding typeCBoxSelected}"  
                 />
 
@@ -253,8 +253,8 @@
             <TextBlock Style="{StaticResource Texte}" Canvas.Left="57" TextWrapping="Wrap" Text="média de la note choisie" Canvas.Top="330" Margin="0"/>
 
 
-            <Button x:Name="boutonGoToList" Command="{Binding CommandePageChange}" Style="{StaticResource Bouton}" Content="Voir la liste" Canvas.Left="10" Canvas.Top="355" Width="88" Height="25"/>
-            <Button x:Name="boutonAddMedia" Command="{Binding CommandeAjoutDonnee}"  Style="{StaticResource Bouton}" Content="Ajout donnees" Canvas.Left="141" Canvas.Top="355" Width="88" Height="25"/>
+            <Button  Command="{Binding CommandePageChange}" Style="{StaticResource Bouton}" Content="Voir la liste" Canvas.Left="10" Canvas.Top="355" Width="88" Height="25"/>
+            <Button  Command="{Binding CommandeAjoutDonnee}"  Style="{StaticResource Bouton}" Content="Ajout donnees" Canvas.Left="141" Canvas.Top="355" Width="88" Height="25"/>
 
         </Canvas>
 
@@ -284,16 +284,23 @@
         </lvc:PieChart>
 
 
+        <lvc:PieChart LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="5" Canvas.Top="10" Grid.Column="1" Margin="142.6,210,-229.8,32">
+            <lvc:PieChart.Series>
+                <lvc:PieSeries Title="Note 0" Values="{Binding valeurNote0}" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
+                <lvc:PieSeries Title="Note 1" Values="{Binding valeurNote1}" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
+                <lvc:PieSeries Title="Note 2" Values="{Binding valeurNote2}" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
+                <lvc:PieSeries Title="Note 3" Values="{Binding valeurNote3}" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
+                <lvc:PieSeries Title="Note 4" Values="{Binding valeurNote4}" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
+                <lvc:PieSeries Title="Note 5" Values="{Binding valeurNote5}" DataLabels="True" LabelPoint="{Binding PointLabel}"/>
 
 
-        <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left" Grid.Column="1" Margin="0.6,230,-384.6,0">
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Notes" Labels="{Binding Labels}"></lvc:Axis>
-            </lvc:CartesianChart.AxisX>
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Nombre de media" LabelFormatter="{Binding Formatter}"></lvc:Axis>
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
+            </lvc:PieChart.Series>
+        </lvc:PieChart>
+
+        
+
+
+
 
     </Grid>
 </Page>
